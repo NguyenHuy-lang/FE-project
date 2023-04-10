@@ -1,0 +1,140 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.Home {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+}
+.Home_function {
+  display: flex;
+  position: relative;
+  background-color: rgb(61, 69, 78);
+  height: 100vh;
+  padding-top: 20px;
+  flex-direction: column;
+  height: 100%;
+}
+.Fun_title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+  color: white;
+  padding: 10px 25px 30px;
+}
+.Fun_item {
+  margin-right: 1px;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  padding: 25px 10px;
+  border: 2px solid white;
+}
+.Home_main {
+  background-color: rgb(243, 244, 246);
+  display: flex;
+  z-index: 0;
+  width: 100vw;
+  flex-direction: column;
+}
+.Title {
+  display: flex;
+  margin: 20px 15px;
+  align-items: flex-start;
+  font-size: 40px;
+}
+.Button {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+.Button_item {
+  width: 150px;
+  height: 50px;
+  font-size: 15px;
+  margin-left: 20px;
+}
+.Bt-item {
+  text-align: center;
+  text-decoration: none;
+}
+.Category {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+.Category_item {
+  width: 150px;
+  margin-left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.List_item {
+  color: black;
+  text-decoration: none;
+  text-align: center;
+}
+.List_item:active {
+  color: rgb(201, 160, 235);
+}
+.List_item1 {
+  display: flex;
+  position: relative;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0) 22.49%,
+      rgb(255, 255, 255) 73.49%
+    ),
+    linear-gradient(
+      264.03deg,
+      rgb(220, 229, 251) -10.27%,
+      rgb(234, 236, 255) 35.65%,
+      rgb(213, 236, 253) 110.66%
+    );
+  flex-direction: row;
+  margin-top: 15px;
+  height: 200px;
+}
+
+.List_item2 {
+  display: flex;
+  position: relative;
+  background-color: rgb(245, 245, 250);
+  flex-direction: column;
+  margin-top: 10px;
+}
+.List_item2_title {
+  font-size: 20px;
+  font-style: italic;
+  align-items: flex-start;
+  padding: 2px 5px 5px;
+}
+.List_item2_main {
+  display: flex;
+  position: relative;
+  background-color: white;
+  flex-direction: row;
+  height: 160px;
+}
+.List_item_2 {
+  display: flex;
+  position: relative;
+  margin-left: 15px;
+  flex-direction: column;
+  text-align: center;
+  height: 100%;
+  padding: 5px;
+  box-shadow: inset;
+  background-image: linear-gradient(white, rgb(229, 237, 253));
+}
+.img_2 {
+  width: 100%;
+  height: 90%;
+}

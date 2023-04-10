@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/product.css" />
+  <link rel="stylesheet prefetch" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" />
+</head>
+
+<body>
+  <script src="/js/api/productAPI.js"></script>
+  <div class="Home">
+    <header>
+      <div class="HomeHeader">
+        <div class="HeaderMiddle">
+          <div class="MiddleSearch">
+            <div class="FromSearch">
+              <input type="text" class="SearchText" placeholder="Tìm kiếm thông tin sản phẩm" />
+              <button type="submit" class="SearchButton">
+                <img src="https://salt.tikicdn.com/ts/upload/33/d0/37/6fef2e788f00a16dc7d5a1dfc5d0e97a.png"
+                  alt="Tìm kiếm" class="SearchIcon" />
+              </button>
+            </div>
+          </div>
+          <div class="MiddleCart">
+            <a href="/main/cart.html">
+              <img src="https://salt.tikicdn.com/ts/upload/51/e2/92/8ca7e2cc5ede8c09e34d1beb50267f4f.png" alt="Cart"
+                class="CartIcon" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="Home-main" id="product">
+      <script> getProduct()</script>
+    </div>
+
+
+    <div class="Comment" >
+      <div class="Comment_header">
+        <a class="Title">BÌNH LUẬN</a>
+      </div>
+      <div class="Comment_new">
+        <div class="Comment_avtar">
+          <img src="/Image/IMG_1733 (1).JPG" alt="avtar" class="avtar" />
+        </div>
+        <div class="Comment_new-text">
+          <input type="text" placeholder="Viết bình luận" class="text" />
+        </div>
+      </div>
+      <div class="Comment_list" id="product_comment">
+      <!-- Comment item  -->
+      <script> getProductComment()</script>
+      <!-- Comment item  -->
+      </div>
+    </div>
+  </div>
+  <script src="/main/product.js"></script>
+</body>
+
+</html>

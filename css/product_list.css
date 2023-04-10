@@ -1,0 +1,55 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.Home {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  position: relative;
+}
+.Main {
+  display: flex;
+  margin: 20px auto 0;
+  width: 1200px;
+  border: 1px solid rgb(85 77 91);
+}
+.Item_infor {
+  display: flex;
+  flex-direction: column;
+}
+.List_item {
+  display: flex;
+  position: relative;
+  margin: 10px 15px 0;
+  flex-direction: column;
+  text-align: center;
+  padding: 5px;
+  height: 380px;
+  box-shadow: inset;
+  border: 1px solid rgb(52 22 19);
+  background-image: linear-gradient(white, rgb(229, 237, 253));
+}
+.img {
+  width: 90%;
+  height: 90%;
+}
+.Button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 15px;
+}
+.Bt {
+  width: 100px;
+  height: 30px;
+  border: 1px solid white;
+  color: white;
+  background-color: rgb(218 32 12);
+}
+.Bt_text {
+  color: white;
+  text-decoration: none;
+}
