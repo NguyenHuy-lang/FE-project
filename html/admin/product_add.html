@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/product_add.css" />
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="/css/product_add.css" rel="stylesheet"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        $(document).ready(function() {
-            $("#btnadd").click(function(event) {
+        $(document).ready(function () {
+            $("#btnadd").click(function (event) {
                 var wsUrl = "http://127.0.0.1:8080/api/v1/admin/products";
-                var soapRequest =  '{"id": null' + ','
-                                  +'"name": "Toan 1"'+','
-                                  +'"description": "Sach danh cho lop 1"' + ','
-                                  +'"imgPath": "https://firebasestorage.googleapis.com/v0/b/hdvnhom8.appspot.com/o/toan1.png?alt=media&token=2d688e02-aa76-4825-a69e-10ee3213a9fb"'+ ','
-                                  +'"price": 110000'+ ','
-                                  +'"cate": {"id": 3}'+ ','
-                                  +'"listComment": []'+ ','
-                                  +'"rating": 4}';
+                var restrequest = '{"id": null' + ','
+                    + '"name":' + $("#name").val() + ','
+                    + '"description":'+ $("#description").val() + ','
+                    + '"imgPath": "https://firebasestorage.googleapis.com/v0/b/hdvnhom8.appspot.com/o/toan1.png?alt=media&token=2d688e02-aa76-4825-a69e-10ee3213a9fb"' + ','
+                    + '"price": 110000' + ','
+                    + '"cate": {"id":'+'3'+'}' + ','
+                    + '"listComment": []' + ','
+                    + '"rating": 4}';
                 alert(soapRequest);
                 $.ajax({
                     type: "POST",
@@ -47,82 +52,62 @@
             //alert(req.responseText + " " + status);
         }
     </script>
-    <script src="https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.4.1/firebase-storage.js"></script>
-    <script>
-      var firebaseConfig = {
-        // firebase config goes here
-        apiKey: "AIzaSyCrhXy6MadW640N6mB-e3cGmL5u3s8aL6s",
-        authDomain: "hdvnhom8.firebaseapp.com",
-        databaseURL: "https://hdvnhom8-default-rtdb.firebaseio.com",
-        projectId: "hdvnhom8",
-        storageBucket: "hdvnhom8.appspot.com",
-        messagingSenderId: "321095979248",
-        appId: "1:321095979248:web:fa7f40b6b5eda17e9af235",
-        measurementId: "G-REPQT5RB2Z"
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      // reference to the storage service
-      var storageRef = firebase.storage().ref();
     
-      // get the file input element
-      var fileInput = document.querySelector('#file-input');
-    
-      // add an event listener for the upload button
-      document.querySelector('#upload-button').addEventListener('click', function() {
-        // get the selected file
-        var file = fileInput.files[0];
-    
-        // create a new reference for the file
-        var fileRef = storageRef.child('files/' + file.name);
-    
-        // upload the file to Firebase Storage
-        fileRef.put(file).then(function(snapshot) {
-          console.log('File uploaded successfully');
-          // get the file download URL
-          return fileRef.getDownloadURL();
-        }).then(function(url) {
-          console.log('File download URL: ' + url);
-          // do something with the URL, for example display an image
-          document.querySelector('#image-preview').src = url;
-        }).catch(function(error) {
-          console.error('Error uploading file:', error);
-        });
-      });
+</head>
+<body>
+    <script type="text/javascript">
+        const selectElement = document.querySelector('select');
+        fetch('http://localhost:8080/api/v1/categories')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(category => {
+                const option = document.createElement('option');
+                option.text = category.name;
+                option.value = category.id;
+                selectElement.add(option).addEventListener('change',event => {
+                    const selectedCategory = event.target.value;
+                    console.log('Selected category:', selectedCategory);
+                    // Add your desired functionality here
+                });
+            });
+        })
+        .catch(error => console.error('Error fetching categories:', error));
     </script>
-  </head>
-  <body>
     <div class="Home">
-      <div class="Main">
-        <div class="Main-title">
-          <div class="Title">THÔNG TIN SẢN PHẨM</div>
-        </div>
-        <div class="Main-infor">
-          <div class="Infor">
-            <input type="text" class="Infor_text" placeholder="Tên mặt hàng" id="name"/>
-          </div>
-          <div class="null"></div>
-          <div class="Infor">
-            <input type="text" class="Infor_text" placeholder="Mô tả" id="description"/>
-          </div>
-          <div class="null"></div>
-          <div class="Infor">
-            <input type="file" id="file-input">
-            <button type="button" id="upload-button">Upload File</button>
-          </div>
-          <div class="null"></div>
-          <div class="Infor">
-            <input type="text" class="Infor_text" placeholder="Giá" />
-          </div>
-          <div class="null"></div>
-        </div>
-        <div class="Button_save">
-          <button class="Save" id="btnadd">
-            <a href="/admin/product_list.html" class="save">SAVE</a>
-          </button>
-        </div>
-      </div>
+        <form class="Main">
+            <div class="Main-title">
+                <div class="Title">THÔNG TIN SẢN PHẨM</div>
+            </div>
+            <div class="Main-infor">
+                <div class="Infor">
+                    <input class="Infor_text" id="name" placeholder="Tên mặt hàng" type="text" required/>
+                </div>
+                <div class="null"></div>
+                <div class="Infor">
+                    <input class="Infor_text" id="description" placeholder="Mô tả" type="text" required/>
+                </div>
+                <div class="null"></div>
+                <div class="Infor">
+                    <input id="file-input" type="file">
+                    <button id="upload-button" type="button">Upload File</button>
+                </div>
+                <div class="null"></div>
+                <div class="Infor">
+                    <input class="Infor_text" id="price" placeholder="Giá" type="text" required/>
+                </div>
+                <div class="null"></div>
+                <div>
+                    <label for="category">Choose a category:</label>
+                    <select id="option"></select>
+                </div>
+                <div class="null"></div>
+            </div>
+            <div class="Button_save">
+                <button class="Save" id="btnadd">
+                    <a class="save" href="/admin/product_list.html">SAVE</a>
+                </button>
+            </div>
+        </form>
     </div>
-  </body>
+</body>
 </html>

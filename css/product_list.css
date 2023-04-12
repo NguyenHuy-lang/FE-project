@@ -23,10 +23,10 @@
   display: flex;
   position: relative;
   margin: 10px 15px 0;
-  flex-direction: column;
+  flex-direction: row;
   text-align: center;
   padding: 5px;
-  height: 380px;
+  height: 240px;
   box-shadow: inset;
   border: 1px solid rgb(52 22 19);
   background-image: linear-gradient(white, rgb(229, 237, 253));

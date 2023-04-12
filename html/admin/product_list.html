@@ -2,55 +2,57 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/product_list.css" />
-  <script href="/js/product.js"></script>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="/css/product_list.css" rel="stylesheet"/>
+    <script href="/js/product.js"></script>
 </head>
 
 <body>
-  <div class="Home">
-    <div class="Main">
-      <div class="List_item" id="List_item">
-        <script>
-          fetch('http://127.0.0.1:8080/api/v1/admin/products', {
-            method: 'GET',
-            headers: { 'content_type': 'application/json' }
-          })
-            .then(response => response.json())
-            .then(data => {
-              console.log(data)
-              const products = data;
-              let productList = document.getElementById('List_item');
-              console.log(productList)
-              products.forEach(product => {
-                const productCard =
-                  ` <div class="List_item">
+
+<script>
+  fetch('http://127.0.0.1:8080/api/v1/admin/products', {
+      method: 'GET',
+      headers: {'content_type': 'application/json'}
+  })
+      .then(response => response.json())
+      .then(data => {
+          console.log(data)
+          const products = data;
+          let productList = document.getElementById('List_item');
+          console.log(productList)
+          products.forEach(product => {
+              const productCard =
+                   `<div class="List_item">
                       <div class="Item_infor">
-                        <a><img src="${product.imgPath}" alt="Image placeholder" class="img-fluid"></a>
+                        <a><img src="${product.imgPath}" alt="Image placeholder" width="100" height="100" class="img-fluid"></a>
                         <div class="block-4-text p-4">
                           <p style="margin-top: 10px">${product.name}<p>
                           <p style="margin-top: 10px">$${product.price}</p>
                         </div>
                         <div class="Button">
                           <button class="Bt" type="button">
-                            <a href="/admin/product_list.html" onclick="deleteProductbyId(${product.id})" class="Bt_text">Xoá</a>
+                            <a href="/html/admin/product_list.html" onclick="deleteProductbyId(${product.id})" class="Bt_text">Xoá</a>
                           </button>
                           <button class="Bt">
-                            <a href="/admin/product_add.html" class="Bt_text">Chỉnh sửa</a>
+                            <a href="/html/admin/product_add.html" class="Bt_text">Chỉnh sửa</a>
                           </button>
                         </div>
                       </div>
                     </div>`;
-                productList.innerHTML += productCard;
-              });
-            })
-        </script>
-      </div>
+              productList.innerHTML += productCard;
+          });
+      })
+</script> 
+<div class="Home">
+    <div class="Main">
+        <div class="List_item" id="List_item">
+           
+        </div>
     </div>
-  </div>
-  </div>
+</div>
+</div>
 </body>
 
 </html>
