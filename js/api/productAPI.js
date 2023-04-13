@@ -170,7 +170,7 @@ const getProductComment = () => {
     .then((data) => {
       console.log(data);
       let render = data.map((item, index) => {
-        return `
+        let commentHTML =  `
         <div class="Commenr_list-rating">
           <div class="Comment_avtar">
             <img src="/Image/IMG_1733 (1).JPG" alt="avtar" class="avtar" />
@@ -185,16 +185,131 @@ const getProductComment = () => {
               </div>
             </div>
           </div>
-        </div>
-        <div class="Button">
-          <button class="bt">Xóa</button>
-          <button class="bt">Chỉnh sửa</button>
-          <button class="bt">Phản hồi</button>
-          <div class="Button-text">
-            <input type="text" placeholder="Phản hồi" class="text" />
-          </div>
         </div>`;
+        if(item.customer.id == 1) commentHTML += `<div class="Button">
+        <button class="new-button" onClick="deleteCommentById(${item.id})">Xóa</button>
+        <button class="new-button" onClick="showPopup(${item.id}, '${item.name}')">Chỉnh sửa</button>
+      </div>`
+      return commentHTML;
       });
       document.querySelector("#product_comment").innerHTML = render.join('');
+    });
+}
+
+function showPopup(commentId, name) {
+  console.log("POP UP");
+  document.getElementById("myPopup").style.display = "block";
+  document.getElementById("hiddenCommentID").value = commentId;
+  editableText.value = name;
+}
+function hidePopup() {
+  document.getElementById("myPopup").style.display = "none";
+}
+function updateComment() {
+  console.log(document.getElementById('editableText').value)
+  const endpoint = localStorage.getItem("endpoint");
+  const commentId = document.getElementById("hiddenCommentID").value;
+  const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint + "/comments/" + commentId ;
+  const data = {
+    id: commentId,
+    customer: {
+      id: 1,
+      email: "huynguyend19ptit@gmail.com",
+      password: "123456",
+      username: "nguyenhuy",
+      user_type: "customer",
+      address: "ha noi",
+      phone: "0327894689"
+    },
+    comment: null,
+    listComments: [],
+    name: document.getElementById('editableText').value
+  };
+
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  };
+
+  fetch(APIUrl, options)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Success:', data);
+      window.location.href = "product.html";
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
+}
+
+function addComment() {
+  const endpoint = localStorage.getItem("endpoint");
+  const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint + "/comment";
+  const data = {
+    customer: {
+      id: 1,
+      email: "huynguyend19ptit@gmail.com",
+      password: "123456",
+      username: "nguyenhuy",
+      user_type: "customer",
+      address: "ha noi",
+      phone: "0327894689"
+    },
+    comment: null,
+    listComments: [],
+    name: document.getElementById('commentinput').value
+  };
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  };
+
+  fetch(APIUrl, options)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Success:', data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
+function deleteCommentById(commentId) {
+  const endpoint = localStorage.getItem("endpoint");
+  const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint + "/comments/" + commentId;
+  console.log(APIUrl);
+  fetch(APIUrl, {
+    method: 'DELETE'
+  })
+    .then(response => {
+      if (response.ok) {
+        alert("Xóa thành công");
+        window.location.href = "product.html";
+      } else {
+        alert("Xóa không thành công");
+        window.location.href = "product.html";
+      }
+    })
+    .catch(error => {
+      alert("Có lỗi xảy ra");
+      window.location.href = "product.html";
     });
 }

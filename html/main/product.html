@@ -38,7 +38,7 @@
     </div>
 
 
-    <div class="Comment" >
+    <div class="Comment">
       <div class="Comment_header">
         <a class="Title">BÌNH LUẬN</a>
       </div>
@@ -47,17 +47,36 @@
           <img src="/Image/IMG_1733 (1).JPG" alt="avtar" class="avtar" />
         </div>
         <div class="Comment_new-text">
-          <input type="text" placeholder="Viết bình luận" class="text" />
+          <input type="text" placeholder="Viết bình luận" class="text" id="commentinput" />
+        </div>
+        <div class="Comment_new-button">
+          <button class="new-button" onclick="submit()">COMMENT</button>
         </div>
       </div>
+      <script>
+        const submit = () => {
+          addComment(document.getElementById('commentinput').value);
+          window.location.href = "product.html";
+        }
+      </script>
       <div class="Comment_list" id="product_comment">
-      <!-- Comment item  -->
-      <script> getProductComment()</script>
-      <!-- Comment item  -->
+        <!-- Comment item  -->
+        <script> getProductComment()</script>
+        <!-- Comment item  -->
       </div>
+
+      <div id="myPopup" class="popup" style="display: none;">
+        <textarea id="editableText"></textarea>
+        <input type="hidden" id="hiddenCommentID" value="">
+        <div class="popup-buttons">
+          <button class="save-button" onclick="updateComment()">Lưu</button>
+          <button class="cancel-button" onclick="hidePopup()">Hủy</button>
+        </div>
+      </div>
+
     </div>
   </div>
-  <script src="/main/product.js"></script>
+  <script src="/js/product.js"></script>
 </body>
 
 </html>
