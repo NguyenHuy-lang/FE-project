@@ -1,58 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+  <head>
     <meta charset="UTF-8"/>
     <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <link href="/css/product_list.css" rel="stylesheet"/>
-    <script href="/js/product.js"></script>
-</head>
+  </head>
 
-<body>
-
-<script>
-  fetch('http://127.0.0.1:8080/api/v1/admin/products', {
-      method: 'GET',
-      headers: {'content_type': 'application/json'}
-  })
-      .then(response => response.json())
-      .then(data => {
-          console.log(data)
-          const products = data;
-          let productList = document.getElementById('List_item');
-          console.log(productList)
-          products.forEach(product => {
-              const productCard =
-                   `<div class="List_item">
-                      <div class="Item_infor">
-                        <a><img src="${product.imgPath}" alt="Image placeholder" width="100" height="100" class="img-fluid"></a>
-                        <div class="block-4-text p-4">
-                          <p style="margin-top: 10px">${product.name}<p>
-                          <p style="margin-top: 10px">$${product.price}</p>
-                        </div>
-                        <div class="Button">
-                          <button class="Bt" type="button">
-                            <a href="/html/admin/product_list.html" onclick="deleteProductbyId(${product.id})" class="Bt_text">Xoá</a>
-                          </button>
-                          <button class="Bt">
-                            <a href="/html/admin/product_add.html" class="Bt_text">Chỉnh sửa</a>
-                          </button>
-                        </div>
-                      </div>
-                    </div>`;
-              productList.innerHTML += productCard;
-          });
-      })
-</script> 
-<div class="Home">
-    <div class="Main">
-        <div class="List_item" id="List_item">
-           
+  <body>
+    <script>
+      function deleteItem(itemId) {
+        fetch(`http://localhost:8080/api/v1/admin/products/${itemId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+            // add any other necessary headers, such as authentication tokens
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          // handle successful response, such as removing the item from the UI
+          const itemElement = document.querySelector(`li[data-item-id="${itemId}"]`);
+          itemElement.remove();
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          // handle error scenario, such as displaying an error message
+        });
+      }
+      fetch('http://127.0.0.1:8080/api/v1/admin/products', {
+          method: 'GET',
+          headers: {
+            'content_type': 'application/json'}
+          })
+          .then(response => response.json())
+          .then(data => {
+              console.log(data)
+              const products = data;
+              let productList = document.getElementById('List_item');
+              console.log(productList)
+              products.forEach(product => {
+                  const productCard =
+                      `<div class="List_item">
+                          <div class="Item_infor" id="${product.id}">
+                            <a><img src="${product.imgPath}" alt="Image placeholder" width="100" height="100" class="img-fluid"></a>
+                            <div class="block-4-text p-4">
+                              <p style="margin-top: 10px">${product.name}<p>
+                              <p style="margin-top: 10px">${product.price}</p>
+                            </div>
+                            <div class="Button">
+                              <button onclick="deleteItem(${product.id})" class="Bt" type="button">
+                                <a href="/html/admin/product_list.html" class="Bt_text">Xoá</a>
+                              </button>
+                              <button class="Bt">
+                                <a href="/html/admin/product_add.html" class="Bt_text">Chỉnh sửa</a>
+                              </button>
+                            </div>
+                          </div>
+                        </div>`;
+                  productList.innerHTML += productCard;
+              });
+          })
+    </script> 
+    <div class="Home">
+        <div class="Main">
+            <div class="List_item" id="List_item">
+              
+            </div>
         </div>
     </div>
-</div>
-</div>
-</body>
+    <script href="/js/product.js"></script>
+  </body>
 
 </html>

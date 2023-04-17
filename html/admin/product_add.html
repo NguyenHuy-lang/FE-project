@@ -14,22 +14,24 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#btnadd").click(function (event) {
+                const imgTag = document.querySelector('img'); //get the img tag element
+                const srcValue = imgTag.getAttribute('src');
                 var wsUrl = "http://127.0.0.1:8080/api/v1/admin/products";
                 var restrequest = '{"id": null' + ','
-                    + '"name":' + $("#name").val() + ','
-                    + '"description":'+ $("#description").val() + ','
-                    + '"imgPath": "https://firebasestorage.googleapis.com/v0/b/hdvnhom8.appspot.com/o/toan1.png?alt=media&token=2d688e02-aa76-4825-a69e-10ee3213a9fb"' + ','
-                    + '"price": 110000' + ','
-                    + '"cate": {"id":'+'3'+'}' + ','
+                    + '"name":' + '"' +$("#name").val() + '"' + ','
+                    + '"description":'+ '"' +$("#description").val() + '"' + ','
+                    + '"imgPath":'+ '"' + srcValue + '"' + ','
+                    + '"price":'+ $("#price").val() + ','
+                    + '"cate": {"id":'+ $("#category-select").val() +'}' + ','
                     + '"listComment": []' + ','
-                    + '"rating": 4}';
-                alert(soapRequest);
+                    + '"rating": null}';
+                alert(restrequest);
                 $.ajax({
                     type: "POST",
                     url: wsUrl,
                     contentType: "application/json",
                     dataType: "json",
-                    data: soapRequest,
+                    data: restrequest,
                     success: processSuccess,
                     error: processError
                 });
@@ -56,25 +58,24 @@
 </head>
 <body>
     <script type="text/javascript">
-        const selectElement = document.querySelector('select');
         fetch('http://localhost:8080/api/v1/categories')
         .then(response => response.json())
         .then(data => {
+            // handle the data
+            const selectElement = document.querySelector('#category-select');
+
             data.forEach(category => {
-                const option = document.createElement('option');
-                option.text = category.name;
-                option.value = category.id;
-                selectElement.add(option).addEventListener('change',event => {
-                    const selectedCategory = event.target.value;
-                    console.log('Selected category:', selectedCategory);
-                    // Add your desired functionality here
-                });
+                const optionElement = document.createElement('option');
+                optionElement.value = category.id;
+                optionElement.textContent = category.name;
+                
+                selectElement.appendChild(optionElement);
             });
-        })
-        .catch(error => console.error('Error fetching categories:', error));
+        });
+
     </script>
     <div class="Home">
-        <form class="Main">
+        <div class="Main">
             <div class="Main-title">
                 <div class="Title">THÔNG TIN SẢN PHẨM</div>
             </div>
@@ -87,9 +88,18 @@
                     <input class="Infor_text" id="description" placeholder="Mô tả" type="text" required/>
                 </div>
                 <div class="null"></div>
-                <div class="Infor">
-                    <input id="file-input" type="file">
-                    <button id="upload-button" type="button">Upload File</button>
+                
+                <input type="file" class="inputFile" id="fileinp"onchange="getFile(event)"
+                accept="image/*"/>
+                <label for="fileinp">+</label>
+                <span class="fileText"></span>
+                <button onclick="uploadImage()" id="upbtn">Upload image</button>
+                <div class="bar">
+                    <div class="process"></div>
+                </div>
+                <div class="uploadPercentage">0%</div>
+                <div class="imageUploaded">
+                    <img width="100dp" height="100dp" alt="" class="img">
                 </div>
                 <div class="null"></div>
                 <div class="Infor">
@@ -97,17 +107,19 @@
                 </div>
                 <div class="null"></div>
                 <div>
-                    <label for="category">Choose a category:</label>
-                    <select id="option"></select>
+                    <label for="category-select">Select a category:</label>
+                    <select id="category-select"></select>
                 </div>
                 <div class="null"></div>
             </div>
             <div class="Button_save">
                 <button class="Save" id="btnadd">
-                    <a class="save" href="/admin/product_list.html">SAVE</a>
+                    <a class="save" href="/html/admin/product_list.html">SAVE</a>
                 </button>
             </div>
-        </form>
+        </div>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
+    <script src="/js/fileservice.js"></script>
 </body>
 </html>

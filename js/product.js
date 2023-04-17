@@ -9,19 +9,28 @@ for(var i = 0 ; i < Button_color.length ; i++){
     
 }
 
-function deleteProductbyId(id){
-    let xhr = new XMLHttpRequest();
-    xhr.open("DELETE", "http://127.0.0.1:8080/api/v1/admin/products/" + id);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            console.log("Product deleted successfully");
-        } else {
-            console.log("Error deleting product");
-        }
-    };
-    xhr.send();
-}
+
+// function deleteItem(itemId) {
+//     fetch(`http://127.0.0.1:8080/api/v1/admin/products/${itemId}`, {
+//         method: 'DELETE',
+//         headers: {
+//         'Content-Type': 'application/json'
+//         // add any other necessary headers, such as authentication tokens
+//         }
+//     })
+//     .then(response => {
+//         if (!response.ok) {
+//         throw new Error('Network response was not ok');
+//         }
+//         // handle successful response, such as updating UI
+//     })
+//     .catch(error => {
+//         console.error('Error:', error);
+//         // handle error scenario, such as displaying an error message
+//     });
+// }
+
+
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
