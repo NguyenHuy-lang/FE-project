@@ -18,7 +18,7 @@
                 const srcValue = imgTag.getAttribute('src');
                 var wsUrl = "http://127.0.0.1:8080/api/v1/admin/products";
                 var restrequest = '{"id": null' + ','
-                    + '"name":' + '"' +$("#name").val() + '"' + ','
+                    + '"name":' + '"' +$("#prdname").val() + '"' + ','
                     + '"description":'+ '"' +$("#description").val() + '"' + ','
                     + '"imgPath":'+ '"' + srcValue + '"' + ','
                     + '"price":'+ $("#price").val() + ','
@@ -63,12 +63,10 @@
         .then(data => {
             // handle the data
             const selectElement = document.querySelector('#category-select');
-
             data.forEach(category => {
                 const optionElement = document.createElement('option');
                 optionElement.value = category.id;
                 optionElement.textContent = category.name;
-                
                 selectElement.appendChild(optionElement);
             });
         });
@@ -81,7 +79,7 @@
             </div>
             <div class="Main-infor">
                 <div class="Infor">
-                    <input class="Infor_text" id="name" placeholder="Tên mặt hàng" type="text" required/>
+                    <input class="Infor_text" id="prdname" placeholder="Tên mặt hàng" type="text" required/>
                 </div>
                 <div class="null"></div>
                 <div class="Infor">

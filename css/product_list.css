@@ -31,6 +31,13 @@
   border: 1px solid rgb(52 22 19);
   background-image: linear-gradient(white, rgb(229, 237, 253));
 }
+.search-box{
+  border:1px solid black;
+  width:50%;
+  margin-left: auto;
+  margin-right: auto;
+        
+}
 .img {
   width: 90%;
   height: 90%;
@@ -42,7 +49,7 @@
   width: 100%;
   margin-top: 15px;
 }
-.Bt {
+#Bt {
   width: 100px;
   height: 30px;
   border: 1px solid white;

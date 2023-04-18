@@ -2,13 +2,42 @@
 <html lang="en">
 
   <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
     <meta charset="UTF-8"/>
     <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <link href="/css/product_list.css" rel="stylesheet"/>
+    <link href="/css/product_add.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
 
   <body>
+    <div class="search-box">
+      <h1 >Search API Demo</h1>
+      <p>Enter search query:</p>
+      <input type="text" id="search-box"><br>
+      <select style="max-width:90%;" id="search-results" size="5"></select>
+    </div>
+    
+    <script>
+      $(document).ready(function() {
+        $('#search-box').on('keyup', function() {
+          var query = $(this).val();
+          var url = 'http://127.0.0.1:8080/api/v1/products/search/' + query;
+          $.get(url, function(data) {
+            var results = $('#search-results');
+            results.empty();
+            $.each(data, function() {
+              results.append($('<option>').text(this.name).val(this.id));
+            });
+          });
+        });
+      });
+    </script>
     <script>
       function deleteItem(itemId) {
         fetch(`http://localhost:8080/api/v1/admin/products/${itemId}`, {
@@ -31,47 +60,150 @@
           // handle error scenario, such as displaying an error message
         });
       }
-      fetch('http://127.0.0.1:8080/api/v1/admin/products', {
-          method: 'GET',
-          headers: {
-            'content_type': 'application/json'}
-          })
-          .then(response => response.json())
-          .then(data => {
-              console.log(data)
-              const products = data;
-              let productList = document.getElementById('List_item');
-              console.log(productList)
-              products.forEach(product => {
-                  const productCard =
-                      `<div class="List_item">
-                          <div class="Item_infor" id="${product.id}">
-                            <a><img src="${product.imgPath}" alt="Image placeholder" width="100" height="100" class="img-fluid"></a>
-                            <div class="block-4-text p-4">
-                              <p style="margin-top: 10px">${product.name}<p>
-                              <p style="margin-top: 10px">${product.price}</p>
-                            </div>
-                            <div class="Button">
-                              <button onclick="deleteItem(${product.id})" class="Bt" type="button">
-                                <a href="/html/admin/product_list.html" class="Bt_text">Xoá</a>
-                              </button>
-                              <button class="Bt">
-                                <a href="/html/admin/product_add.html" class="Bt_text">Chỉnh sửa</a>
-                              </button>
-                            </div>
-                          </div>
-                        </div>`;
-                  productList.innerHTML += productCard;
-              });
-          })
     </script> 
-    <div class="Home">
-        <div class="Main">
-            <div class="List_item" id="List_item">
-              
-            </div>
-        </div>
+    <br>
+    <script>
+      fetch("http://127.0.0.1:8080/api/v1/admin/products").then(
+        res => {
+          res.json().then(
+            data => {
+              console.log(data);
+              if (data.length > 0) {
+                var temp = "";
+                data.forEach((itemData) => {
+                  temp += `<tr>
+                    <td>${itemData.id}</td>
+                    <td><img src="${itemData.imgPath}" alt="Image placeholder" width="100dp" height="100dp" class="img-fluid"></td>
+                    <td>${itemData.name}</td>
+                    <td>${itemData.price}</td>
+                    <td>${itemData.cate.name}</td>
+                    <td>
+                      <div class="Button">
+                        <button onclick="deleteItem(${itemData.id})" id="Bt" type="button">
+                          <a href="/html/admin/product_list.html" class="Bt_text">Delete</a>
+                        </button>
+                        <button id="Bt" onclick="updateProdbyId(${itemData.id})" class="updateBtn" type="button">
+                          <a class="Bt_text">Update</a>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>`;
+
+                });
+                document.getElementById('data').innerHTML = temp;
+              }
+            }
+          )
+        }
+      )
+      const updateButtons = document.querySelectorAll('.updateBtn');
+      const imgTag = document.querySelector(".img"); //get the img tag element
+      const srcValue = imgTag.getAttribute('src');
+      function updateProdbyId(id){
+        fetch(`http://127.0.0.1:8080/api/v1/admin/products/${id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+          // Handle the data returned by the API
+          alert(data);
+        })
+        .catch(error => {
+          // Handle any errors that occurred during the API request
+          console.error(error);
+        });
+      }
+      
+      const data = {
+        name: $("#prdname").val(),
+        description: $("#description").val(),
+        imgPath: srcValue,
+        price: $("#price").val(),
+        cate: {
+          id: $("#category-select").val()
+        }
+      };
+    </script>
+    <script type="text/javascript">
+      fetch('http://localhost:8080/api/v1/categories')
+      .then(response => response.json())
+      .then(data => {
+          // handle the data
+          const selectElement = document.querySelector('#category-select');
+          data.forEach(category => {
+              const optionElement = document.createElement('option');
+              optionElement.value = category.id;
+              optionElement.textContent = category.name;
+              selectElement.appendChild(optionElement);
+          });
+      });
+    </script>
+    <div class="container">
+      <table  class="table table-striped table-responsive-md" border="1" id="myTable" >
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Product name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="data">
+          <!-- rows will be dynamically inserted here -->
+        </tbody>
+      </table>
     </div>
+    <div class="Main">
+      <form width="100dp" id="updateForm">
+        <input type="hidden" id="prdid"/>
+        <div >
+          <label>Tên mặt hàng </label>
+          <input class="form-control mb-4 col-4" id="prdname" placeholder="Tên mặt hàng" type="text" required/>
+        </div>
+        <div class="null"></div>
+        <div >
+          <label>Mô tả</label>
+          <input class="form-control mb-4 col-4" id="description" placeholder="Mô tả" type="text" required/>
+        </div>
+        <div class="null"></div>
+        <div>
+          <input type="file" class="inputFile" id="fileinp"onchange="getFile(event)"
+          accept="image/*"/>
+          <label for="fileinp">+</label>
+          <span class="fileText"></span>
+          <button onclick="uploadImage()" id="upbtn">Upload image</button>
+          <div class="bar">
+              <div class="process"></div>
+          </div>
+          <div class="uploadPercentage">0%</div>
+          <div class="imageUploaded">
+              <img style="width: 20dp; height: 20dp;" width="20dp" height="20dp" alt="" class="img">
+          </div>
+        </div>
+        
+        <div class="null"></div>
+        <div>
+            <input class="form-control mb-4 col-4" id="price" placeholder="Giá" type="text" required/>
+        </div>
+        <div class="null"></div>
+        <div>
+            <label for="category-select">Select a category:</label>
+            <select id="category-select"></select>
+        </div>
+        <div class="null"></div>
+        <button id="submitBtn" type="submit">Submit</button>
+      </form>
+    </div>
+    
+    
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
+    <script src="/js/fileservice.js"></script>
     <script href="/js/product.js"></script>
   </body>
 
