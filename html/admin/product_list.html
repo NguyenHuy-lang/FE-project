@@ -17,8 +17,8 @@
 
   <body>
     <div class="search-box">
-      <h1 >Search API Demo</h1>
-      <p>Enter search query:</p>
+      <h1 >Search product</h1>
+      <p>Enter syntax:</p>
       <input type="text" id="search-box"><br>
       <select style="max-width:90%;" id="search-results" size="5"></select>
     </div>
@@ -36,7 +36,22 @@
             });
           });
         });
+        $('#search-results').on('click', 'option', function() {
+          var resultId = $(this).val();
+          var url = 'http://127.0.0.1:8080/api/v1/admin/products/' + resultId;
+          alert(data);
+          $.get(url, function(data) {
+            $('#prdid').val(data.id);
+            $('#prdname').val(data.name);
+            $('#description').val(data.description);
+            $('img').attr('src').val(data.imgPath);
+            $('#price').val(data.price);
+            $('#category-select').val(data.cate.name);
+          });
+        });
       });
+      
+
     </script>
     <script>
       function deleteItem(itemId) {
@@ -82,7 +97,7 @@
                         <button onclick="deleteItem(${itemData.id})" id="Bt" type="button">
                           <a href="/html/admin/product_list.html" class="Bt_text">Delete</a>
                         </button>
-                        <button id="Bt" onclick="updateProdbyId(${itemData.id})" class="updateBtn" type="button">
+                        <button onclick="populateFormWithApiData(${itemData.id})" id="Bt" class="detailbtn" type="button">
                           <a class="Bt_text">Update</a>
                         </button>
                       </div>
@@ -96,37 +111,45 @@
           )
         }
       )
-      const updateButtons = document.querySelectorAll('.updateBtn');
-      const imgTag = document.querySelector(".img"); //get the img tag element
-      const srcValue = imgTag.getAttribute('src');
-      function updateProdbyId(id){
-        fetch(`http://127.0.0.1:8080/api/v1/admin/products/${id}`, {
-          method: 'PUT',
+      
+      // const imgTag = document.querySelector("img"); //get the img tag element
+      // const srcValue = imgTag.getAttribute('src');
+      
+    </script>
+    <script>
+      function populateFormWithApiData(id) {
+        // Replace URL with your API endpoint and ID parameter name
+        fetch(`ttp://127.0.0.1:8080/api/v1/admin/products/${id}`, {
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
+          }
         })
-        .then(response => response.json())
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            console.error('Failed to retrieve data.');
+            // Handle the error or display a message to the user
+          }
+        })
         .then(data => {
-          // Handle the data returned by the API
-          alert(data);
+          // Replace "formField" with your form field IDs or names
+          document.getElementById('prdid').value = data.id;
+          document.getElementById('prdname').value = data.name;
+          document.getElementById('description').value = data.description;
+          const imagePath = data.path;
+          const imgElement = document.querySelector("img");
+          imgElement.setAttribute("src", imagePath);
+          document.getElementById('price').value = data.price;
+          document.getElementById('category-select').getElementsByTagName('option') = data.cate.name;
+          // ... and so on for each field
         })
         .catch(error => {
-          // Handle any errors that occurred during the API request
-          console.error(error);
+          console.error('Error occurred while retrieving data:', error);
+          // Handle the error or display a message to the user
         });
       }
-      
-      const data = {
-        name: $("#prdname").val(),
-        description: $("#description").val(),
-        imgPath: srcValue,
-        price: $("#price").val(),
-        cate: {
-          id: $("#category-select").val()
-        }
-      };
     </script>
     <script type="text/javascript">
       fetch('http://localhost:8080/api/v1/categories')
@@ -159,47 +182,48 @@
         </tbody>
       </table>
     </div>
-    <div class="Main">
-      <form width="100dp" id="updateForm">
-        <input type="hidden" id="prdid"/>
-        <div >
-          <label>Tên mặt hàng </label>
-          <input class="form-control mb-4 col-4" id="prdname" placeholder="Tên mặt hàng" type="text" required/>
+    <form width="100" id="update-form">
+      <div>
+        <input id="prdid" type="hidden"/>
+      </div>
+      <div class="null"></div>
+      <div >
+        <label>Tên mặt hàng </label>
+        <input class="form-control mb-4 col-4" id="prdname" placeholder="Tên mặt hàng" type="text" required/>
+      </div>
+      <div class="null"></div>
+      <div >
+        <label>Mô tả</label>
+        <input class="form-control mb-4 col-4" id="description" placeholder="Mô tả" type="text" required/>
+      </div>
+      <div class="null"></div>
+      <div>
+        <input type="file" class="inputFile" id="fileinp"onchange="getFile(event)"
+        accept="image/*"/>
+        <label for="fileinp">+</label>
+        <span class="fileText"></span>
+        <button onclick="uploadImage()" id="upbtn">Upload image</button>
+        <div class="bar">
+            <div class="process"></div>
         </div>
-        <div class="null"></div>
-        <div >
-          <label>Mô tả</label>
-          <input class="form-control mb-4 col-4" id="description" placeholder="Mô tả" type="text" required/>
+        <div class="uploadPercentage">0%</div>
+        <div class="imageUploaded">
+            <img style="width: 20dp; height: 20dp;" width="20dp" height="20dp" alt="" class="img">
         </div>
-        <div class="null"></div>
-        <div>
-          <input type="file" class="inputFile" id="fileinp"onchange="getFile(event)"
-          accept="image/*"/>
-          <label for="fileinp">+</label>
-          <span class="fileText"></span>
-          <button onclick="uploadImage()" id="upbtn">Upload image</button>
-          <div class="bar">
-              <div class="process"></div>
-          </div>
-          <div class="uploadPercentage">0%</div>
-          <div class="imageUploaded">
-              <img style="width: 20dp; height: 20dp;" width="20dp" height="20dp" alt="" class="img">
-          </div>
-        </div>
-        
-        <div class="null"></div>
-        <div>
-            <input class="form-control mb-4 col-4" id="price" placeholder="Giá" type="text" required/>
-        </div>
-        <div class="null"></div>
-        <div>
-            <label for="category-select">Select a category:</label>
-            <select id="category-select"></select>
-        </div>
-        <div class="null"></div>
-        <button id="submitBtn" type="submit">Submit</button>
-      </form>
-    </div>
+      </div>
+      
+      <div class="null"></div>
+      <div>
+          <input class="form-control mb-4 col-4" id="price" placeholder="Giá" type="text" required/>
+      </div>
+      <div class="null"></div>
+      <div>
+          <label for="category-select">Select a category:</label>
+          <select id="category-select"></select>
+      </div>
+      <div class="null"></div>
+      <button id="update-btn" type="submit">Submit</button>
+    </form>
     
     
     <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>

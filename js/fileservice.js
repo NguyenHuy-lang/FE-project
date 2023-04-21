@@ -30,7 +30,7 @@ function uploadImage(){
 
     uploadTask.on("state_changed",(snapshot)=>{
         console.log(snapshot);
-        percentVal = Math.floor((snapshot.bytesTransferred.snapshot.totalBytes)*100);
+        percentVal = Math.floor((snapshot.bytesTransferred/snapshot.totalBytes)*100);
         console.log(percentVal);
         uploadPercentage.innerHTML = percentVal+"%";
         progress.style.width = percentVal+"%";
