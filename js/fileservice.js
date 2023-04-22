@@ -24,7 +24,8 @@ function getFile(e){
     fileText.innerHTML = fileName;
 }
 
-function uploadImage(){
+function uploadImage(event){
+    event.preventDefault();
     let storageRef = firebase.storage().ref("product/" + fileName);
     let uploadTask = storageRef.put(fileItem);
 
