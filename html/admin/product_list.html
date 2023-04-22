@@ -16,6 +16,7 @@
   </head>
 
   <body>
+    <div inser></div>
     <div class="search-box">
       <h1 >Search product</h1>
       <p>Enter syntax:</p>
@@ -38,16 +39,27 @@
         });
         $('#search-results').on('click', 'option', function() {
           var resultId = $(this).val();
-          var url = 'http://127.0.0.1:8080/api/v1/admin/products/' + resultId;
-          alert(data);
-          $.get(url, function(data) {
-            $('#prdid').val(data.id);
-            $('#prdname').val(data.name);
-            $('#description').val(data.description);
-            $('img').attr('src').val(data.imgPath);
-            $('#price').val(data.price);
-            $('#category-select').val(data.cate.name);
-          });
+          const form = document.querySelector('#update-form');
+          const prdIdField = document.querySelector('#prdid');
+          const prdNameField = document.querySelector('#prdname');
+          const descriptionField = document.querySelector('#description');
+          const img = document.querySelector('.img');
+          const priceField = document.querySelector('#price');
+          const categorySelect = document.querySelector('#category-select');
+
+          // Fetch the product data from the server
+          fetch(`http://127.0.0.1:8080/api/v1/admin/products/${resultId}`)
+            .then(response => response.json())
+            .then(product => {
+              // Set the values of the form fields to the corresponding data of the product
+              prdIdField.value = product.id;
+              prdNameField.value = product.name;
+              descriptionField.value = product.description;
+              img.src = product.imgPath;
+              priceField.value = product.price;
+              categorySelect.value = product.cate.id;
+            })
+            .catch(error => console.error(error));
         });
       });
       
@@ -88,7 +100,7 @@
                 data.forEach((itemData) => {
                   temp += `<tr>
                     <td>${itemData.id}</td>
-                    <td><img src="${itemData.imgPath}" alt="Image placeholder" width="100dp" height="100dp" class="img-fluid"></td>
+                    <td><img width="50dp" height="50dp" src="${itemData.imgPath}" alt="Image placeholder" class="img-fluid"></td>
                     <td>${itemData.name}</td>
                     <td>${itemData.price}</td>
                     <td>${itemData.cate.name}</td>
@@ -119,36 +131,27 @@
     <script>
       function populateFormWithApiData(id) {
         // Replace URL with your API endpoint and ID parameter name
-        fetch(`ttp://127.0.0.1:8080/api/v1/admin/products/${id}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            console.error('Failed to retrieve data.');
-            // Handle the error or display a message to the user
-          }
-        })
-        .then(data => {
-          // Replace "formField" with your form field IDs or names
-          document.getElementById('prdid').value = data.id;
-          document.getElementById('prdname').value = data.name;
-          document.getElementById('description').value = data.description;
-          const imagePath = data.path;
-          const imgElement = document.querySelector("img");
-          imgElement.setAttribute("src", imagePath);
-          document.getElementById('price').value = data.price;
-          document.getElementById('category-select').getElementsByTagName('option') = data.cate.name;
-          // ... and so on for each field
-        })
-        .catch(error => {
-          console.error('Error occurred while retrieving data:', error);
-          // Handle the error or display a message to the user
-        });
+        const form = document.querySelector('#update-form');
+        const prdIdField = document.querySelector('#prdid');
+        const prdNameField = document.querySelector('#prdname');
+        const descriptionField = document.querySelector('#description');
+        const img = document.querySelector('.img');
+        const priceField = document.querySelector('#price');
+        const categorySelect = document.querySelector('#category-select');
+
+        // Fetch the product data from the server
+        fetch(`http://127.0.0.1:8080/api/v1/admin/products/${id}`)
+          .then(response => response.json())
+          .then(product => {
+            // Set the values of the form fields to the corresponding data of the product
+            prdIdField.value = product.id;
+            prdNameField.value = product.name;
+            descriptionField.value = product.description;
+            img.src = product.imgPath;
+            priceField.value = product.price;
+            categorySelect.value = product.cate.id;
+          })
+          .catch(error => console.error(error));
       }
     </script>
     <script type="text/javascript">
@@ -201,15 +204,15 @@
       <div>
         <input type="file" class="inputFile" id="fileinp"onchange="getFile(event)"
         accept="image/*"/>
-        <label for="fileinp">+</label>
-        <span class="fileText"></span>
-        <button onclick="uploadImage()" id="upbtn">Upload image</button>
+        <!-- <label for="fileinp" type="hidden">+</label>
+        <span class="fileText" type="hidden"></span> -->
+        <button onclick="uploadImage(event)" id="upbtn">Upload image</button>
         <div class="bar">
             <div class="process"></div>
         </div>
         <div class="uploadPercentage">0%</div>
         <div class="imageUploaded">
-            <img style="width: 20dp; height: 20dp;" width="20dp" height="20dp" alt="" class="img">
+            <img width="200dp" height="200dp" alt="" class="img">
         </div>
       </div>
       
@@ -225,7 +228,49 @@
       <div class="null"></div>
       <button id="update-btn" type="submit">Submit</button>
     </form>
-    
+    <script>
+      const updateForm = document.getElementById('update-form');
+
+      updateForm.addEventListener('submit', (event) => {
+        // event.preventDefault(); // prevent the default form submission behavior
+        
+        const productId = document.getElementById('prdid').value;
+        const prdName = document.getElementById('prdname').value;
+        const description = document.getElementById('description').value;
+        const imgPath = document.querySelector('.img').src; // assuming the img tag has a class of "img"
+        const price = document.getElementById('price').value;
+        const category = document.getElementById('category-select').value;
+        
+        const data = {
+          id: productId,
+          name: prdName,
+          description: description,
+          imgPath: imgPath,
+          price: price,
+          cate: {
+            id: category
+          }
+        };
+        
+        fetch(`http://127.0.0.1:8080/api/v1/admin/products/${productId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+          // handle the API response data
+          console.log(data);
+        })
+        .catch(error => {
+          // handle the error
+          console.error(error);
+        });
+      });
+
+    </script>
     
     <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
     <script src="/js/fileservice.js"></script>
