@@ -1,0 +1,57 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.Home {
+  background: url("https://images.unsplash.com/photo-1678032862679-3ad28a6192a7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDJ8Ym84alFLVGFFMFl8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60");
+  z-index: 0;
+  height: 100vh;
+  position: relative;
+}
+.Main {
+  margin: 30px auto 0px;
+  position: relative;
+  border: 5px solid;
+  display: flex;
+  flex-direction: column;
+  width: 1200px;
+  background-color: white;
+}
+.Title {
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+  padding-top: 10px;
+  border-bottom: 2px solid;
+}
+.Add {
+  height: 34px;
+  border-bottom: 1px solid;
+}
+.Bt_add {
+  margin-left: 20px;
+  height: 100%;
+  width: 100px;
+  background-color: rgb(252 90 49);
+  color: white;
+  border: 0;
+  cursor: pointer;
+}
+.Add {
+  color: white;
+  text-decoration: none;
+}
+.bt {
+  margin-left: 10px;
+  height: 30px;
+  width: 100px;
+  background-color: white;
+  border: 0;
+  color: rgb(252 90 49);
+  cursor: pointer;
+}
+.Update {
+  color: rgb(252 90 49);
+  text-decoration: none;
+}

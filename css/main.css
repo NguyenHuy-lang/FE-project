@@ -1,0 +1,73 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.Home {
+  background-image: url("/Image/image2.jpg");
+  background-size: 100%;
+  background-attachment: fixed;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+.Home_main {
+  display: flex;
+  position: relative;
+}
+.Main {
+  margin: 50px auto 20px;
+  width: 1000px;
+  height: 600px;
+  background-color: white;
+  border: 5px solid black;
+  box-shadow: 10px 10px rgb(53 46 59);
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  border-bottom: 5px solid black;
+}
+.Title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 17px 15px 5px 25px;
+}
+.Log_out {
+  height: 100%;
+  margin-right: 20px;
+}
+.Bt_log-out {
+  background-color: white;
+  color: rgb(236 106 82);
+  width: 100px;
+  height: 100%;
+  border: 0;
+  font-size: 20px;
+}
+.Function {
+  display: flex;
+  flex-direction: column;
+  height: 450px;
+  justify-content: center;
+  align-items: center;
+}
+.Bt {
+  height: 50px;
+  width: 300px;
+  margin-top: 15px;
+  border: 3px solid rgb(53 46 59);
+  border-radius: 10px;
+  background-image: linear-gradient(
+    to bottom right,
+    #ff9eaa 0% 65%,
+    #e860ff 95% 100%
+  );
+}
+.Bt_fun {
+  text-decoration: none;
+}
+.Bt_fun:active {
+  color: white;
+}
