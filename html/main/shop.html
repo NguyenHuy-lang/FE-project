@@ -53,14 +53,14 @@
     </div>
     <main>
       <div class="HomeMain" id="itemList">
-        <script> 
-        const sort_type = localStorage.getItem("sort_type");
-        if(sort_type == "cate"){
-          getListProductByCate();
-        }
-        else if(sort_type == "search") searchProduct();
-        else getListProduct();
-           </script>
+        <script>
+          const sort_type = localStorage.getItem("sort_type");
+          if (sort_type == "cate") {
+            getListProductByCate();
+          }
+          else if (sort_type == "search") searchProduct();
+          else getListProduct();
+        </script>
       </div>
     </main>
   </div>

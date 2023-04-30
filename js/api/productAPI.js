@@ -4,11 +4,34 @@ const saveInfo = (btn) => {
 }
 
 const getListProduct = () => {
+  params = {}
+  let regex = /([^&=]+)=([^&]*)/g, m
+  while (m = regex.exec(location.href)) {
+      params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+  }
+
+  if (Object.keys(params).length > 0) {
+      localStorage.setItem('authInfo', JSON.stringify(params))
+  }
+
+  // window.history.pushState({}, document.title, "/" + "profile.html")
+
+  let info = JSON.parse(localStorage.getItem('authInfo'))
+
+  console.log(info)
+  console.log(info['access_token'])
+  console.log(info['expires_in'])
+
+  
+  const accessToken = info['access_token'];
   console.log("ALL PRODUCT")
   const APIUrl = "http://localhost:8080/api/v1/products";
   fetch(APIUrl, {
     method: 'GET',
-    headers: { 'content-type': 'application/json' },
+    headers: {
+       'Authorization': `Bearer ${accessToken}`,
+       'content-type': 'application/json' 
+      },
   }).then((response) => response.json())
     .then((data) => {
       let render = data.map((item, index) => {
@@ -35,10 +58,33 @@ const getListProduct = () => {
 }
 
 const getAllCate = () => {
+  params = {}
+  let regex = /([^&=]+)=([^&]*)/g, m
+  while (m = regex.exec(location.href)) {
+      params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+  }
+
+  if (Object.keys(params).length > 0) {
+      localStorage.setItem('authInfo', JSON.stringify(params))
+  }
+
+  // window.history.pushState({}, document.title, "/" + "profile.html")
+
+  let info = JSON.parse(localStorage.getItem('authInfo'))
+
+  console.log(info)
+  console.log(info['access_token'])
+  console.log(info['expires_in'])
+
+  
+  const accessToken = info['access_token'];
   const APIUrl = "http://localhost:8080/api/v1/categories";
   fetch(APIUrl, {
     method: 'GET',
-    headers: { 'content-type': 'application/json' },
+    headers: { 
+      'Authorization': `Bearer ${accessToken}`,
+      'content-type': 'application/json'
+     },
   }).then((response) => response.json())
     .then((data) => {
       let render = data.map((item, index) => {

@@ -1,4 +1,4 @@
-function googleSign() {
+function googleSignIn() {
     let oauth2EndPoint = "https://accounts.google.com/o/oauth2/v2/auth"
 
     let form = document.createElement('form')
@@ -7,7 +7,7 @@ function googleSign() {
 
     let params = {
         "client_id": "94808415300-4453e41v16brkcd4l4gj3nbs3spq7ode.apps.googleusercontent.com",
-        "redirect_uri": "http://127.0.0.1:5500/index.html",
+        "redirect_uri": "http://127.0.0.1:5500/html/main/shop.html",
         "response_type": "token",
         "scope": "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
         "include_granted_scopes": "true",
@@ -25,7 +25,6 @@ function googleSign() {
     document.body.appendChild(form)
     form.submit()
 }
-
 
 async function submitForm() {
 
@@ -48,6 +47,7 @@ async function submitForm() {
     console.log(info['expires_in'])
 
     const accessToken = info['access_token'];
+    localStorage.setItem('accessToken', accessToken);
 
     const postOptions = {
         method: 'GET',
