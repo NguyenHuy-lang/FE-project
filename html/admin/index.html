@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Admin</title>
+    <link rel="stylesheet" href="/html/admin/assets/vendors/mdi/css/materialdesignicons.min.css" />
+    <link rel="stylesheet" href="/html/admin/assets/vendors/flag-icon-css/css/flag-icon.min.css" />
+    <link rel="stylesheet" href="/html/admin/assets/vendors/css/vendor.bundle.base.css" />
+    <link rel="stylesheet" href="/html/admin/assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/html/admin/assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="/html/admin/assets/css/style.css" />
+    <link rel="shortcut icon" href="/html/admin/assets/images/favicon.png" />
+  </head>
+  <body>
+    <div class="container-scroller">
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
+          <!-- <a class="sidebar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo" /></a>
+          <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a> -->
+        </div>
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <a href="#" class="nav-link">
+              <div class="nav-profile-image">
+                <img src="assets/images/faces/face1.jpg" alt="profile" />
+                <span class="login-status online"></span>
+                <!--change to offline or busy as needed-->
+              </div>
+              <div class="nav-profile-text d-flex flex-column pr-3">
+                <span class="font-weight-medium mb-2">Nguyễn Ngọc Đức Anh</span>
+                <span class="font-weight-normal">Hello admin</span>
+              </div>
+              <span class="badge badge-danger text-white ml-3 rounded">3</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Product admin</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item">
+                  <a class="nav-link" href="../admin/pages/product_admin/product_list.html">List product</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../admin/pages/product_admin/product_add.html">Add product</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/admin/pages/user_admin/user_admin.html">
+              <i class="mdi mdi-contacts menu-icon"></i>
+              <span class="menu-title">User admin</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/admin/pages/category_admin/category_admin.html">
+              <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+              <span class="menu-title">Category admin</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/admin/pages/order_admin/order_admin.html">
+              <i class="mdi mdi-table-large menu-icon"></i>
+              <span class="menu-title">Order admin</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/html/admin/pages/order_admin/order_admin.html">
+              <i class="mdi mdi-bank-transfer-in menu-icon"></i>
+              <span class="menu-title">Payment admin </span>
+            </a>
+          </li>
+          <li class="nav-item sidebar-actions">
+            <div class="nav-link">
+              <div class="mt-4">
+                <ul class="mt-4 pl-0">
+                  <li>Sign Out</li>
+                </ul>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="container-fluid page-body-wrapper">
+        <div id="theme-settings" class="settings-panel">
+          <i class="settings-close mdi mdi-close"></i>
+          <p class="settings-heading">SIDEBAR SKINS</p>
+          <div class="sidebar-bg-options selected" id="sidebar-default-theme">
+            <div class="img-ss rounded-circle bg-light border mr-3"></div> Default
+          </div>
+          <div class="sidebar-bg-options" id="sidebar-dark-theme">
+            <div class="img-ss rounded-circle bg-dark border mr-3"></div> Dark
+          </div>
+          <p class="settings-heading mt-2">HEADER SKINS</p>
+          <div class="color-tiles mx-0 px-4">
+            <div class="tiles light"></div>
+            <div class="tiles dark"></div>
+          </div>
+        </div>
+        <nav class="navbar col-lg-12 col-12 p-lg-0 fixed-top d-flex flex-row">
+          <div class="navbar-menu-wrapper d-flex align-items-stretch justify-content-between">
+            <a class="navbar-brand brand-logo-mini align-self-center d-lg-none" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+            <button class="navbar-toggler navbar-toggler align-self-center mr-2" type="button" data-toggle="minimize">
+              <i class="mdi mdi-menu"></i>
+            </button>
+            
+            <ul class="navbar-nav navbar-nav-right ml-lg-auto">
+              <li class="nav-item nav-profile dropdown border-0">
+                <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown">
+                  <img class="nav-profile-img mr-2" alt="" src="assets/images/faces/face1.jpg" />
+                  <span class="profile-name">Admin</span>
+                </a>
+                <div class="dropdown-menu navbar-dropdown w-100" aria-labelledby="profileDropdown">
+                  <a class="dropdown-item" href="#">
+                    <i class="mdi mdi-cached mr-2 text-success"></i> Activity Log </a>
+                  <a class="dropdown-item" href="#">
+                    <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
+                </div>
+              </li>
+            </ul>
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+              <span class="mdi mdi-menu"></span>
+            </button>
+          </div>
+        </nav>
+        <div class="main-panel">
+          <div class="content-wrapper pb-0">
+            <div class="page-header flex-wrap">
+              <h3 class="mb-0"> Welcome! <span class="pl-0 h6 pl-sm-2 text-muted d-inline-block">Duc Anh.</span>
+              </h3>
+              <!-- <div class="d-flex">
+                <button type="button" class="btn btn-sm bg-white btn-icon-text border">
+                  <i class="mdi mdi-email btn-icon-prepend"></i> Email </button>
+                <button type="button" class="btn btn-sm bg-white btn-icon-text border ml-3">
+                  <i class="mdi mdi-printer btn-icon-prepend"></i> Print </button>
+                <button type="button" class="btn btn-sm ml-3 btn-success"> Add User </button>
+              </div> -->
+            </div>
+           
+            <div class="row">
+              <div class="col-xl-4 col-md-6 grid-margin stretch-card">
+                <div class="card card-invoice">
+                  <div class="card-body">
+                    <h4 class="card-title pb-3">Pending invoices</h4>
+                    <div class="list-card">
+                      <div class="row align-items-center">
+                        <div class="col-7 col-sm-8">
+                          <div class="row align-items-center">
+                            <div class="col-sm-4">
+                              <img src="assets/images/faces/face2.jpg" alt="" />
+                            </div>
+                            <div class="col-sm-8 pr-0 pl-sm-0">
+                              <span>06 Jan 2019</span>
+                              <h6 class="mb-1 mb-sm-0">Isabel Cross</h6>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-5 col-sm-4">
+                          <div class="d-flex pt-1 align-items-center">
+                            <div class="reload-outer bg-info">
+                              <i class="mdi mdi-reload"></i>
+                            </div>
+                            <div class="dropdown dropleft pl-1 pt-3">
+                              <div id="dropdownMenuButton2" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <p><i class="mdi mdi-dots-vertical"></i></p>
+                              </div>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <a class="dropdown-item" href="#">Sales</a>
+                                <a class="dropdown-item" href="#">Track Invoice</a>
+                                <a class="dropdown-item" href="#">Payment History</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-card">
+                      <div class="row align-items-center">
+                        <div class="col-7 col-sm-8">
+                          <div class="row align-items-center">
+                            <div class="col-sm-4">
+                              <img src="assets/images/faces/face3.jpg" alt="" />
+                            </div>
+                            <div class="col-sm-8 pr-0 pl-sm-0">
+                              <span>18 Mar 2019</span>
+                              <h6 class="mb-1 mb-sm-0">Carrie Parker</h6>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-5 col-sm-4">
+                          <div class="d-flex pt-1 align-items-center">
+                            <div class="reload-outer bg-primary">
+                              <i class="mdi mdi-reload"></i>
+                            </div>
+                            <div class="dropdown dropleft pl-1 pt-3">
+                              <div id="dropdownMenuButton3" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <p><i class="mdi mdi-dots-vertical"></i></p>
+                              </div>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                <a class="dropdown-item" href="#">Sales</a>
+                                <a class="dropdown-item" href="#">Track Invoice</a>
+                                <a class="dropdown-item" href="#">Payment History</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-card">
+                      <div class="row align-items-center">
+                        <div class="col-7 col-sm-8">
+                          <div class="row align-items-center">
+                            <div class="col-sm-4">
+                              <img src="assets/images/faces/face11.jpg" alt="" />
+                            </div>
+                            <div class="col-sm-8 pr-0 pl-sm-0">
+                              <span>10 Apr 2019</span>
+                              <h6 class="mb-1 mb-sm-0">Don Bennett</h6>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-5 col-sm-4">
+                          <div class="d-flex pt-1 align-items-center">
+                            <div class="reload-outer bg-warning">
+                              <i class="mdi mdi-reload"></i>
+                            </div>
+                            <div class="dropdown dropleft pl-1 pt-3">
+                              <div id="dropdownMenuButton4" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <p><i class="mdi mdi-dots-vertical"></i></p>
+                              </div>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                                <a class="dropdown-item" href="#">Sales</a>
+                                <a class="dropdown-item" href="#">Track Invoice</a>
+                                <a class="dropdown-item" href="#">Payment History</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-card">
+                      <div class="row align-items-center">
+                        <div class="col-7 col-sm-8">
+                          <div class="row align-items-center">
+                            <div class="col-sm-4">
+                              <img src="assets/images/faces/face3.jpg" alt="" />
+                            </div>
+                            <div class="col-sm-8 pr-0 pl-sm-0">
+                              <span>18 Mar 2019</span>
+                              <h6 class="mb-1 mb-sm-0">Carrie Parker</h6>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-5 col-sm-4">
+                          <div class="d-flex pt-1 align-items-center">
+                            <div class="reload-outer bg-info">
+                              <i class="mdi mdi-reload"></i>
+                            </div>
+                            <div class="dropdown dropleft pl-1 pt-3">
+                              <div id="dropdownMenuButton5" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                <p><i class="mdi mdi-dots-vertical"></i></p>
+                              </div>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
+                                <a class="dropdown-item" href="#">Sales</a>
+                                <a class="dropdown-item" href="#">Track Invoice</a>
+                                <a class="dropdown-item" href="#">Payment History</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="assets/vendors/flot/jquery.flot.js"></script>
+    <script src="assets/vendors/flot/jquery.flot.resize.js"></script>
+    <script src="assets/vendors/flot/jquery.flot.categories.js"></script>
+    <script src="assets/vendors/flot/jquery.flot.fillbetween.js"></script>
+    <script src="assets/vendors/flot/jquery.flot.stack.js"></script>
+    <script src="assets/vendors/flot/jquery.flot.pie.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/hoverable-collapse.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="assets/js/dashboard.js"></script>
+    <!-- End custom js for this page -->
+  </body>
+</html>
