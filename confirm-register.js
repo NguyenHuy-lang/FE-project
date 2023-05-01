@@ -60,7 +60,7 @@ function confirmGoogleSignUp() {
     const parentElement = document.querySelector('#email');
     const email = parentElement.querySelector('h1').textContent; 
 
-    const data = {username: email, password: document.querySelector('.pas').value};
+    const data = {email: email, password: document.querySelector('.pas').value};
 
     fetch(url, {
     method: 'POST',
