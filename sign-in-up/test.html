@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            position: relative;
+            background-color: rgb(252 90 49);
+        }
+
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        .HomeHeader {
+            min-width: 980px;
+            height: 60px;
+            display: flex;
+            padding-left: 100px;
+            padding-right: 100px;
+            margin-left: auto;
+            margin-right: auto;
+            flex-direction: column;
+        }
+
+        .HeaderMiddle {
+            position: relative;
+            justify-content: space-between;
+            display: flex;
+            padding-top: 10px;
+        }
+
+        .MiddleSearch {
+            width: 100%;
+            height: 40px;
+            position: relative;
+            display: flex;
+            margin-left: 10px;
+            flex: 1 1 0%;
+        }
+
+        .FromSearch {
+            display: flex;
+            width: 80%;
+            position: relative;
+            border-radius: 1px;
+            background: rgb(255, 255, 255);
+            border: 2px solid rgb(255, 255, 255);
+            margin-left: 10px;
+        }
+
+        .SearchText {
+            width: 100%;
+            padding: 0px 8px;
+            font-size: 15px;
+            cursor: pointer;
+            border: 2px solid rgb(255, 255, 255);
+            justify-content: flex-start;
+            line-height: calc(80%);
+            outline: none;
+        }
+
+        .SearchButton {
+            width: 60px;
+            height: 35px;
+            background-color: rgb(251, 85, 51);
+            margin: 2px 2px;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            border: 2px solid rgb(255, 255, 255);
+        }
+
+        .SearchIcon {
+            width: 15px;
+            height: 15px;
+            margin: 5px 5px;
+            justify-content: center;
+        }
+
+        .MiddleCart {
+            position: relative;
+            width: 50px;
+            height: 50 px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .CartIcon {
+            width: 80%;
+            height: 80%;
+        }
+
+        .Home {
+            background-color: rgb(245, 245, 245);
+        }
+
+        .Home-main {
+            margin: 50px auto 0px;
+            display: flex;
+            width: 1200px;
+            height: 500px;
+            background-color: white;
+        }
+
+        .Product {
+            width: 450px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .img {
+            width: 100%;
+            position: absolute;
+            padding: 15px;
+        }
+
+        .Description {
+            margin: 30px;
+            display: flex;
+            flex: 1 1 auto;
+            flex-direction: column;
+        }
+
+        .Name {
+            font-size: 20px;
+            line-height: 10px;
+            vertical-align: sub;
+        }
+
+        .Description_text {
+            margin-top: 20px;
+            font-size: 20px;
+            height: auto;
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        .Description_image {
+            margin-top: 20px;
+            color: rgba(0, 0, 0, 0.9);
+            font-size: 18px;
+            line-height: normal;
+        }
+
+        .Description_price {
+            display: flex;
+            margin-top: 25px;
+        }
+
+        .Price_title {
+            color: #444;
+            font-size: 25px;
+        }
+
+        .Price {
+            color: #d0011b;
+            margin-left: 20px;
+            font-size: 25px;
+        }
+
+        .Description_quantity {
+            display: flex;
+            margin-top: 25px;
+            flex-direction: column;
+        }
+
+        .Quan_title {
+            text-transform: capitalize;
+            color: #444;
+            font-size: 20px;
+        }
+
+        .Quantity_input {
+            width: 50%;
+            height: 30px;
+            margin-top: 10px;
+            margin-left: 5px;
+        }
+
+        .Order {
+            margin-top: 25px;
+        }
+
+        .button_order {
+            height: 30px;
+            background-color: rgb(251, 235, 237);
+            border: 1px solid #d0011b;
+            cursor: pointer;
+        }
+
+        .Order_text {
+            text-decoration: none;
+            color: #d0011b;
+        }
+
+        .Comment {
+            display: flex;
+            width: 1200px;
+            background-color: white;
+            margin: 50px auto 0px;
+            flex-direction: column;
+        }
+
+        .Comment_header {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .Title {
+            padding: 30px 20px 0px;
+            font-size: 40px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .Comment_list {
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.9);
+        }
+
+        .Commenr_list-rating {
+            display: flex;
+            padding: 20px 0px 30px 40px;
+        }
+
+        .Comment_avtar {
+            width: 40px;
+            height: 40px;
+            border: 0;
+        }
+
+        .avtar {
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .Rating-name {
+            display: flex;
+            font-size: 15px;
+            color: rgba(0, 0, 0, 0.87);
+        }
+
+        .Comment_rating {
+            display: flex;
+        }
+
+        .Rating_star {
+            display: flex;
+            height: 20px;
+            margin-top: 10px;
+        }
+
+        .Rating-comment {
+            display: flex;
+            flex-direction: column;
+            margin-top: 0;
+            margin-left: 20px;
+        }
+
+        .Comment_comment-list {
+            position: relative;
+            box-sizing: border-box;
+            word-break: break-word;
+            margin-top: 20px;
+        }
+
+        .Comment_list-title {
+            color: rgba(0, 0, 0, 0.4);
+            font-size: 15px;
+        }
+
+        .Comment_text {
+            margin-top: 10px;
+            word-wrap: break-word;
+            width: 600px;
+        }
+
+        div.stars {
+            width: 270px;
+            display: inline-block;
+        }
+
+        input.star {
+            display: none;
+        }
+
+        label.star {
+            float: right;
+            font-size: 20px;
+            color: #444;
+            transition: all 0.2s;
+            color: #ee4d2d;
+        }
+
+        input.star:checked~label.star:before {
+            content: "\f005";
+            color: #ee4d2d;
+            transition: all 0.25s;
+        }
+
+        input.star-5:checked~label.star:before {
+            color: #ee4d2d;
+        }
+
+        input.star-1:checked~label.star:before {
+            color: #ee4d2d;
+        }
+
+        label.star:hover {
+            transform: rotate(-15deg) scale(1.3);
+        }
+
+        label.star:before {
+            content: "\f006";
+            font-family: FontAwesome;
+        }
+
+        .Comment_new {
+            padding: 20px 40px 10px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .Comment_new-text {
+            margin: 5px 15px 0;
+            height: 30px;
+        }
+
+        .new-button {
+            height: 35px;
+            width: 130px;
+            background-color: rgb(251, 85, 51);
+            color: white;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .text {
+            height: 100%;
+            width: 500px;
+            border: 0;
+            border-bottom: 1px solid;
+        }
+
+        .Button {
+            margin: 20px;
+            position: relative;
+            width: 100%;
+        }
+
+        .bt {
+            margin-right: 20px;
+            width: 150px;
+            height: 30px;
+            background-color: rgb(251, 85, 51);
+            color: white;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .Button-text {
+            height: 30px;
+            margin-left: 380px;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .Button-back {
+            margin-top: 10px;
+            width: 100px;
+            height: 30px;
+        }
+
+        .Bt_back {
+            background-color: rgb(251, 85, 51);
+            border: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .Back_text {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+    <link rel="stylesheet prefetch" href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" />
+</head>
+
+<body>
+    <div class="Home">
+        <header>
+            <div class="HomeHeader">
+                <div class="HeaderMiddle">
+                    <div class="MiddleSearch">
+                        <div class="FromSearch">
+                            <input type="text" class="SearchText" placeholder="Tìm kiếm thông tin sản phẩm" />
+                            <button type="submit" class="SearchButton">
+                                <img src="https://salt.tikicdn.com/ts/upload/33/d0/37/6fef2e788f00a16dc7d5a1dfc5d0e97a.png"
+                                    alt="Tìm kiếm" class="SearchIcon" />
+                            </button>
+                        </div>
+                    </div>
+                    <div class="MiddleCart">
+                        <a href="/main/cart.html">
+                            <img src="https://salt.tikicdn.com/ts/upload/51/e2/92/8ca7e2cc5ede8c09e34d1beb50267f4f.png"
+                                alt="Cart" class="CartIcon" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="Button-back">
+            <button class="Bt_back">
+                <a href="/main/shop.html" class="Back_text">BACK</a>
+            </button>
+        </div>
+        <div class="Home-main">
+            <div class="Product">
+                <div class="Image">
+                    <img src="https://down-vn.img.susercontent.com/file/17191d607c9e136fea3127412c3a8561" class="img" />
+                </div>
+            </div>
+            <div class="Description">
+                <div class="Name">
+                    <span>Điện thoại Xiaomi Redmi 9C | 3+64G/ 4+128GB</span>
+                </div>
+                <div class="Description_text">
+                    <span class="Comment_list-title">Mô tả: </span>
+                    Là mẫu điện thoại có chất lượng tốt trong phân khúc
+                </div>
+                <div class="Description_image">
+                    <a href="https://down-vn.img.susercontent.com/file/17191d607c9e136fea3127412c3a8561">Link:
+                        https://down-vn.img.susercontent.com/file/17191d607c9e136fea3127412c3a8561</a>
+                </div>
+                <div class="Description_price">
+                    <div class="Price_title">GIÁ HIỆN TẠI:</div>
+                    <div class="Price">₫1.989.000</div>
+                </div>
+                <div class="Description_quantity">
+                    <div class="Quan_title">Số lượng đặt mua</div>
+
+                    <input type="text" id="text" class="Quantity_input" />
+                </div>
+                <div class="Order">
+                    <button class="button_order">
+                        <a href="/main/cart.html" class="Order_text">Thêm vào giỏ hàng</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="Comment">
+            <div class="Comment_header">
+                <a class="Title">BÌNH LUẬN</a>
+            </div>
+            <div class="Comment_new">
+                <div class="Comment_avtar">
+                    <img src="/Image/IMG_1733 (1).JPG" alt="avtar" class="avtar" />
+                </div>
+                <div class="Comment_new-text">
+                    <input type="text" placeholder="Viết bình luận" class="text" />
+                </div>
+                <div class="Comment_new-button">
+                    <button class="new-button">COMMENT</button>
+                </div>
+            </div>
+            <div class="Comment_list">
+                <div class="Commenr_list-rating">
+                    <div class="Comment_avtar">
+                        <img src="/Image/IMG_1733 (1).JPG" alt="avtar" class="avtar" />
+                    </div>
+                    <div class="Comment_rating">
+                        <div class="Rating-comment">
+                            <div class="Rating-name">Nguyen Tung</div>
+                            <div class="Rating_star">
+                                <form action="">
+                                    <input class="star star-5" id="star-5" type="radio" name="star" />
+                                    <label class="star star-5" for="star-5"></label>
+                                    <input class="star star-4" id="star-4" type="radio" name="star" />
+                                    <label class="star star-4" for="star-4"></label>
+                                    <input class="star star-3" id="star-3" type="radio" name="star" />
+                                    <label class="star star-3" for="star-3"></label>
+                                    <input class="star star-2" id="star-2" type="radio" name="star" />
+                                    <label class="star star-2" for="star-2"></label>
+                                    <input class="star star-1" id="star-1" type="radio" name="star" />
+                                    <label class="star star-1" for="star-1"></label>
+                                </form>
+                            </div>
+                            <div class="Comment_comment-list">
+                                <div style="margin-top: 5px">
+                                    <span class="Comment_list-title">Chất lượng sản phẩm:
+                                    </span>
+                                    "tốt"
+                                </div>
+                                <div style="margin-top: 10px">
+                                    <span class="Comment_list-title">Đúng với mô tả: </span>
+                                    "Hinh anh chi mang tinh chat minh hoa"
+                                </div>
+                                <div class="Comment_text">
+                                    "Sản phẩm dùng rất tốt, đẹp, chụp ảnh rất nét, chơi game hay
+                                    xem phim thì hình ảnh rất sắc nét, âm thanh sống động, là
+                                    một sản phẩm hợp lý trong phân khúc "
+                                </div>
+                                <div class="Button">
+                                    <button class="bt">Xóa</button>
+                                    <button class="bt">Chỉnh sửa</button>
+                                    <button class="bt">Phản hồi</button>
+                                    <!-- <div class="Button-text">
+                      <input type="text" placeholder="Phản hồi" class="text" />
+                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/main/product.js"></script>
+</body>
+
+</html>
