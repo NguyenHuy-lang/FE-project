@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>My Website</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+
+        header h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+
+<body>
+    <header>
+        <h1>Chat nao ae</h1>
+    </header>
+
+    <main>
+        <div class="contact-box-form">
+            <button id="chat-btn">
+            <i class="fab fa-facebook-messenger"></i>
+            Chat on Messenger
+        </button>
+        </div>
+        
+    </main>
+
+    <footer>
+        <p>&copy; by Duc Anh</p>
+    </footer>
+
+    <script>
+        const chatBtn = document.getElementById('chat-btn');
+
+        chatBtn.addEventListener('click', () => {
+            fetch('http://localhost:8080/api/v1/messenger-chat')
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = response.url;
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Website</title>
+</head>
+
+<body>
+    <h1>Welcome to My Website</h1>
+    <div class="fb-customerchat" attribution="setup_tool" page_id="115384261536607" greeting_dialog_display="hide"
+        theme_color="#0084ff" logged_in_greeting="Hi! How can we help you?"
+        logged_out_greeting="Hi! How can we help you?">
+    </div>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '6ae63fb692d614ac5134600cc440d5d0',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v16.0'
+            });
+        };
+
+        function openChat() {
+            FB.CustomerChat.showDialog();
+        }
+
+        function loadFacebookSDK() {
+            var js,
+                id = 'facebook-jssdk',
+                ref = document.getElementsByTagName('script')[0];
+            if (document.getElementById(id)) {
+                return;
+            }
+            js = document.createElement('script');
+            js.id = id;
+            js.async = true;
+            js.src = "https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js";
+            ref.parentNode.insertBefore(js, ref);
+        }
+
+        loadFacebookSDK();
+    </script>
+</body>
+
+</html>
