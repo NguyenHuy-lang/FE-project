@@ -1,47 +1,4 @@
-// $(document).ready(function () {
-//     $('#search-box').on('keyup', function () {
-//         var query = $(this).val();
-//         var url = 'http://127.0.0.1:8080/api/v1/products/search/' + query;
-//         $.get(url, function (data) {
-//             var results = $('#search-results');
-//             results.empty();
-//             $.each(data, function () {
-//                 results.append($('<option>').text(this.name).val(this.id));
-//             });
-//         });
-//     });
-//     $('#search-results').on('click', 'option', function () {
-//         var formDialog = document.getElementById('form-dialog');
-//         var closeDialogButton = document.getElementById('close-dialog');
-//         var resultId = $(this).val();
-//         const form = document.querySelector('#update-form');
-//         const prdIdField = document.querySelector('#prdid');
-//         const prdNameField = document.querySelector('#prdname');
-//         const descriptionField = document.querySelector('#description');
-//         const img = document.querySelector('.imgsrc');
-//         const priceField = document.querySelector('#price');
-//         const categorySelect = document.querySelector('#category-select');
-//         $('.hidden-form').show();
-//         // Fetch the product data from the server
-//         fetch(`http://127.0.0.1:8080/api/v1/admin/products/${resultId}`)
-//             .then(response => response.json())
-//             .then(product => {
-//                 // Set the values of the form fields to the corresponding data of the product
-//                 prdIdField.value = product.id;
-//                 prdNameField.value = product.name;
-//                 descriptionField.value = product.description;
-//                 img.src = product.imgPath;
-//                 priceField.value = product.price;
-//                 categorySelect.value = product.cate.id;
-//                 formDialog.style.display = 'block';
 
-//             })
-//             .catch(error => console.error(error));
-//         closeDialogButton.addEventListener('click', function () {
-//             formDialog.style.display = 'none';
-//         });
-//     });
-// });
 const apisite = 'http://localhost:8080/';
 
 const searchResults = document.querySelector('.search-results');

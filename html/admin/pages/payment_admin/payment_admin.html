@@ -170,7 +170,7 @@
                                 <th>Name</th>
                             </tr>
                         </thead>
-                        <tbody id="data_category">
+                        <tbody id="data_payment">
                             <!-- rows will be dynamically inserted here -->
                         </tbody>
                     </table>
@@ -183,13 +183,13 @@
                             <dialog id="form-dialog" class="dialog">
                                 <h4 class="card-title">Add new category</h4>
                                 <p class="card-description"></p>
-                                <form class="hidden-form" id="update-form-category">
+                                <form class="hidden-form" id="update-form-payment">
                                     <div class="form-group">
-                                        <input id="cateid" type="hidden" />
+                                        <input id="payid" type="hidden" />
                                     </div>
                                     <div class="form-group">
-                                        <label for="catename">Name</label>
-                                        <input class="form-control" id="catename" placeholder="Tên danh mục" type="text"
+                                        <label for="payname">Name</label>
+                                        <input class="form-control" id="payname" placeholder="Payment method" type="text"
                                             required />
                                     </div>
 
@@ -197,7 +197,7 @@
                                         <button type="submit" id="btnupdate" class="btn btn-primary mr-2"> Submit
                                         </button>
                                         <button class="btn btn-link">
-                                            <a href="../../pages/category_admin/category_admin.html">Cancel</a>
+                                            <a href="../../pages/payment_admin/payment_admin.html">Cancel</a>
                                         </button>
                                     </div>
 
@@ -207,20 +207,20 @@
                     </div>
                 </div>
                 <div class="card">
-                    <form class="hidden-form-add" style="display:none;" id="add-form-category">
+                    <form class="hidden-form-add" style="display:none;" id="add-form-payment">
                         <div class="col-md-6 grid-margin stretch-card">
                             <div class="card-body">
                                 <h4 class="card-title">Add new category</h4>
                                 <div class="form-group">
                                     <label for="addname">Name</label>
-                                    <input class="form-control" id="addname" placeholder="Tên danh mục" type="text"
+                                    <input class="form-control" id="addname" placeholder="Payment method" type="text"
                                         required />
                                 </div>
 
                                 <div class="row">
                                     <button type="submit" id="btnadd" class="btn btn-primary mr-2"> Add </button>
                                     <button class="btn btn-link">
-                                        <a href="../../pages/category_admin/category_admin.html">Cancel</a>
+                                        <a href="../../pages/payment_admin/payment_admin.html">Cancel</a>
                                     </button>
                                 </div>
                             </div>
@@ -260,7 +260,7 @@
     <!-- Custom js for this page -->
     <script src="../../assets/js/dashboard.js"></script>
     <!-- End custom js for this page -->
-    <script src="../../assets/js/category.js">
+    <script src="../../assets/js/paymentmethod.js">
 
     </script>
     <script></script>

@@ -1,5 +1,3 @@
-
-
 const apisite = 'http://localhost:8080/';
 
 //search
@@ -8,7 +6,7 @@ const searchResults = document.querySelector('.search-results');
 const searchInput = document.querySelector('#search input');
 function searchcategory() {
     const query = searchInput.value;
-    const url = apisite + 'api/v1/admin/categories/search/' + query;
+    const url = apisite + 'api/v1/admin/payment-methods/search/' + query;
     fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -21,7 +19,7 @@ function searchcategory() {
                     li.textContent = item.name;
                     li.addEventListener('click', () => {
                         // Do something with the selected item
-                        populateCategoryWithApiData(item.id);
+                        populatePaymentWithApiData(item.id);
                     });
                     results.appendChild(li);
                 });
@@ -40,17 +38,15 @@ document.addEventListener('click', event => {
 
 //add category
 function openaddform() {
-    var form = document.getElementById("add-form-category");
+    var form = document.getElementById("add-form-payment");
     form.style.display = "block";
     form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        var cateId = document.querySelector('#cateid').value;
-        var cateName = document.querySelector('#addname').value;
+        var paymentName = document.querySelector('#addname').value;
         var data = {
-            id: cateId,
-            name: cateName
+            id: null,
+            name: paymentName
         }
-        fetch(apisite+"api/v1/admin/categories", {
+        fetch(apisite+"api/v1/admin/payment-methods", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -67,7 +63,7 @@ function openaddform() {
 
 
 //list category
-fetch(apisite + "api/v1/categories").then(
+fetch(apisite + "api/v1/admin/payment-methods").then(
     res => {
         res.json().then(
             data => {
@@ -80,7 +76,7 @@ fetch(apisite + "api/v1/categories").then(
                                     <td>${itemData.name}</td>
                                     <td>
                                         <div class="Button">
-                                            <button onclick="populateCategoryWithApiData(${itemData.id})" id="Bt" class="btn btn-info" type="button">
+                                            <button onclick="populatePaymentWithApiData(${itemData.id})" id="Bt" class="btn btn-info" type="button">
                                             <a class="Bt_text">Update</a>
                                             </button>
                                         </div>
@@ -88,27 +84,27 @@ fetch(apisite + "api/v1/categories").then(
                                 </tr>`;
 
                     });
-                    document.getElementById('data_category').innerHTML = temp;
+                    document.getElementById('data_payment').innerHTML = temp;
                 }
             }
         )
     }
 )
 
-function populateCategoryWithApiData(id) {
+function populatePaymentWithApiData(id) {
 
     var formDialog = document.getElementById('form-dialog');
     // Replace URL with your API endpoint and ID parameter name
-    var cateIdField = document.querySelector('#cateid');
-    var cateNameField = document.querySelector('#catename');
+    var payIdField = document.querySelector('#payid');
+    var payNameField = document.querySelector('#payname');
     $('.hidden-form').show();
     // Fetch the product data from the server
-    fetch(apisite + `api/v1/admin/categories/${id}`)
+    fetch(apisite + `api/v1/admin/payment-methods/${id}`)
         .then(response => response.json())
-        .then(category => {
+        .then(payment => {
             // Set the values of the form fields to the corresponding data of the product
-            cateIdField.value = category.id;
-            cateNameField.value = category.name;
+            payIdField.value = payment.id;
+            payNameField.value = payment.name;
             formDialog.style.display = 'block';
         })
         .catch(error => console.error(error));
@@ -117,20 +113,20 @@ function populateCategoryWithApiData(id) {
     });
 }
 
-const updateForm = document.getElementById('update-form-category');
+const updateForm = document.getElementById('update-form-payment');
 
 updateForm.addEventListener('submit', (event) => {
     // event.preventDefault(); // prevent the default form submission behavior
 
-    const cateId = document.getElementById('cateid').value;
-    const cateName = document.getElementById('catename').value;
+    const payId = document.getElementById('payid').value;
+    const payName = document.getElementById('payname').value;
 
     const data = {
-        id: cateId,
-        name: cateName
+        id: payId,
+        name: payName
     };
 
-    fetch(apisite + `api/v1/admin/categories/${cateId}`, {
+    fetch(apisite + `api/v1/admin/payment-methods/${payId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -147,4 +143,3 @@ updateForm.addEventListener('submit', (event) => {
             console.error(error);
         });
 });
-
