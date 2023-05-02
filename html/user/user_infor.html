@@ -1,46 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8"/>
-    <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <link href="/css/user_infor.css" rel="stylesheet"/>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/user_infor.css" />
 </head>
+
 <body>
-<div class="Home">
-    <div class="Main">
-        <div class="Main-title">
-            <div class="Title">THÔNG TIN CÁ NHÂN</div>
-        </div>
-        <div class="Main-infor">
-            <div class="Infor">
-                <input class="Infor_text" placeholder="Username" type="text"/>
+    <div class="Home">
+        <div class="Main">
+            <div class="Main-title">
+                <div class="Title">THÔNG TIN CÁ NHÂN</div>
             </div>
-            <div class="null"></div>
-            <div class="Infor">
-                <input class="Infor_text" placeholder="Gmail" type="text"/>
+            <div class="Main-infor">
+                <div class="Infor">
+                    <input type="text" class="Infor_text" id="name" placeholder="Username" />
+                </div>
+                <div class="null"></div>
+                <div class="Infor">
+                    <input type="text" class="Infor_text" id="password" placeholder="Password" />
+                </div>
+                <div class="null"></div>
+                <div class="Infor">
+                    <input type="text" class="Infor_text" id="gmail" placeholder="Gmail" />
+                </div>
+                <div class="null"></div>
+                <div class="Infor">
+                    <select name="user-type" id="user_type" class="role">
+                        <option value="Chọn vai trò">Chọn vai trò</option>
+                        <option value="admin">Admin</option>
+                        <option value="customer">Customer</option>
+                    </select>
+                </div>
+                <div class="null"></div>
+                <div class="Infor">
+                    <input type="text" class="Infor_text" id="address" placeholder="Address" />
+                </div>
+                <div class="null"></div>
+                <div class="Infor">
+                    <input type="text" class="Infor_text" id="phone" placeholder="Phone" />
+                </div>
+                <div class="null"></div>
             </div>
-            <div class="null"></div>
-            <div class="Infor">
-                <input class="Infor_text" placeholder="role" type="text"/>
+            <div class="Button_save">
+                <button class="Save" id="btsave">
+                    <a class="save" href="/html/admin/pages/user_admin/user_admin.html">SAVE</a>
+                </button>
             </div>
-            <div class="null"></div>
-            <div class="Infor">
-                <input class="Infor_text" placeholder="Address" type="text"/>
-            </div>
-            <div class="null"></div>
-            <div class="Infor">
-                <input class="Infor_text" placeholder="Phone" type="text"/>
-            </div>
-            <div class="null"></div>
-        </div>
-        <div class="Button_save">
-            <button class="Save">
-                <a class="save" href="/user/user.html">SAVE</a>
-            </button>
         </div>
     </div>
-</div>
+    <script>
+        let database = [];
+        var data = "";
+        var userId = localStorage.getItem("userId");
+        localStorage.setItem("respone", userId);
+
+        if (userId === "") {
+            var selectElement = document.querySelector("#user_type");
+            var user_type;
+            selectElement.addEventListener("change", (event) => {
+                user_type = event.target.value;
+            });
+            var btSave = document.getElementById("btsave");
+            btSave.addEventListener("click", function () {
+                var name = document.getElementById("name").value;
+                var password = document.getElementById("password").value;
+                var gmail = document.getElementById("gmail").value;
+                var address = document.getElementById("address").value;
+                var phone = document.getElementById("phone").value;
+
+                if (user_type === "admin") {
+                    data = JSON.stringify({
+                        email: gmail,
+                        username: name,
+                        password: password,
+                        address: address,
+                        user_type: user_type,
+                    });
+                } else {
+                    data = JSON.stringify({
+                        email: gmail,
+                        username: name,
+                        password: password,
+                        user_type: user_type,
+                        address: address,
+                        phone: phone,
+                    });
+                }
+
+                fetch(`http://127.0.0.1:8080/api/v1/admin/users`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: data,
+                });
+            });
+        } else {
+            fetch(`http://127.0.0.1:8080/api/v1/admin/users/${userId}`)
+                .then((response) => response.json())
+                .then((database) => {
+                    var Name = document.getElementById("name");
+                    Name.value = database.username;
+                    var Password = document.getElementById("password");
+                    Password.value = database.password;
+                    var Gmail = document.getElementById("gmail");
+                    Gmail.value = database.email;
+                    var Address = document.getElementById("address");
+                    Address.value = database.address;
+                    var Phone = document.getElementById("phone");
+                    Phone.value = database.phone;
+                    var selectElement = document.querySelector("#user_type");
+                    var User_type;
+                    selectElement.addEventListener("change", (event) => {
+                        User_type = event.target.value;
+                    });
+                    var BtSave = document.getElementById("btsave");
+                    BtSave.addEventListener("click", function () {
+                        var name = Name.value;
+                        var password = Password.value;
+                        var gmail = Gmail.value;
+                        var address = Address.value;
+                        var phone = Phone.value;
+                        if (User_type === "admin") {
+                            data = JSON.stringify({
+                                email: gmail,
+                                username: name,
+                                password: password,
+                                user_type: User_type,
+                            });
+                        } else {
+                            data = JSON.stringify({
+                                email: gmail,
+                                username: name,
+                                password: password,
+                                user_type: User_type,
+                                address: address,
+                                phone: phone,
+                            });
+                        }
+                        fetch(`http://127.0.0.1:8080/api/v1/admin/users/${userId}`, {
+                                method: "PUT",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: data,
+                            })
+                            .then((response) => {
+                                if (!response.ok) {
+                                    throw new Error("Network response was not ok");
+                                }
+                                return response.json();
+                            })
+                            .then((data) => {
+                                console.log(data);
+                            });
+                    });
+                });
+        }
+    </script>
 </body>
 
 </html>

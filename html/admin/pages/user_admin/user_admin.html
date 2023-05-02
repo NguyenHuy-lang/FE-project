@@ -147,7 +147,34 @@
             </nav>
             <div class="main-panel">
                 <!-- put user here -->
+                <div class="col-lg-9 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">List of user</h4>
 
+                            <div class="table-responsive">
+                                <table class="table" id="list_member">
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Gmail</th>
+                                            <th>Password</th>
+                                            <th>User-type</th>
+                                            <th>Username</th>
+                                            <th>Address</th>
+                                            <th>Phone</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <a href="/html/user/user_infor.html">Add new user</a>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- main-panel ends -->
         </div>
@@ -180,7 +207,102 @@
     <!-- End custom js for this page -->
 
     </script>
-    <script></script>
+    <script>
+        let apiData = [];
+        const table = document.querySelector("#list_member");
+        var Respone = localStorage.getItem("respone");
+        console.log(Respone);
+
+        fetch("http://127.0.0.1:8080/api/v1/admin/users")
+            .then((response) => response.json())
+            .then((data) => {
+                apiData = data;
+                data.forEach((row) => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+            <tr align="center" valign="center" id="item" >
+                <td height="30px" id="Id" class = "item id">${row.id}</td>
+                <td class = "item" id="gmail">${row.email}</td>
+                <td class = "item" id="password">${row.password}</td>
+                <td class = "item" id="user_type">${row.user_type}</td>
+                <td class = "item" id="username">${row.username}</td>
+                <td class = "item" id="address">${row.address}</td>
+                <td class = "item" id="phone">${row.phone}</td>
+                <td>
+                  <button class="bt" id="btxoa" onclick="deleteItem(${row.id})">
+                    <a href="/user/user.html"  class="Update">Xóa</a>
+                    </button>
+                  <button id="btEdit" class="bt btEdit"  >
+                    <a  class="Update" href="/html/user/user_infor.html" >Chỉnh sửa</a>
+                  </button>
+                </td>
+              </tr>
+          `;
+                    table.querySelector("tbody").appendChild(tr);
+                });
+
+                var myButton = document.querySelectorAll("#btEdit");
+                var myID = "";
+                localStorage.setItem("userId", myID);
+
+                if (myButton.length !== 0) {
+                    myButton.forEach(function (button, Index) {
+                        button.addEventListener("click", function () {
+                            myID = apiData[Index].id;
+                            localStorage.setItem("userId", myID);
+                            // deleteItem(myID);
+                        });
+                    });
+                }
+            });
+        if (Respone != "") {
+            fetch(`http://127.0.0.1:8080/api/v1/admin/users/${Respone}`)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    var index;
+                    const arr = data;
+
+                    localStorage.setItem("respone", "");
+
+                    const tbody = table.getElementsByTagName("tbody")[0];
+                    const rows = tbody.getElementsByTagName("tr");
+
+                    for (let i = 0; i < rows.length; i++) {
+                        const cells = rows[i].getElementsByTagName("td");
+                        if (cells[0].innerHTML == Respone) {
+                            index = i;
+                            console.log(index);
+                            break;
+                        }
+                    }
+                    console.log(arr.email);
+                    rows[index].cells[1].innerText = arr.email;
+                    rows[index].cells[2].innerText = arr.password;
+                    rows[index].cells[3].innerText = arr.user_type;
+                    rows[index].cells[4].innerText = arr.username;
+                    rows[index].cells[5].innerText = arr.address;
+                    rows[index].cells[6].innerText = arr.phone;
+                });
+        }
+
+        function deleteItem(itemId) {
+            fetch(`http://127.0.0.1:8080/api/v1/admin/users/${itemId}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }).then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                const itemElement = document.querySelector(
+                    `li[data-item-id="${itemId}"]`
+                );
+                itemElement.remove();
+            });
+        }
+    </script>
 </body>
 
 </html>
