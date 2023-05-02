@@ -24,6 +24,7 @@ const getListProduct = () => {
 
   
   const accessToken = info['access_token'];
+  localStorage.setItem("token", accessToken);
   console.log("ALL PRODUCT")
   const APIUrl = "http://localhost:8080/api/v1/products";
   fetch(APIUrl, {
