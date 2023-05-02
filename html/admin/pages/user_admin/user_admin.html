@@ -153,7 +153,7 @@
                             <h4 class="card-title">List of user</h4>
 
                             <div class="table-responsive">
-                                <table class="table" id="list_member">
+                                <table class="table table-bordered" id="list_member">
                                     <thead>
                                         <tr>
                                             <th>STT</th>
@@ -229,11 +229,11 @@
                 <td class = "item" id="address">${row.address}</td>
                 <td class = "item" id="phone">${row.phone}</td>
                 <td>
-                  <button class="bt" id="btxoa" onclick="deleteItem(${row.id})">
-                    <a href="/user/user.html"  class="Update">Xóa</a>
+                  <button class="btn btn-warning" id="btxoa" onclick="deleteItem(${row.id})" type="button">
+                    <a href="../../pages/user_admin/user_admin.html" class="Update">Xóa</a>
                     </button>
-                  <button id="btEdit" class="bt btEdit"  >
-                    <a  class="Update" href="/html/user/user_infor.html" >Chỉnh sửa</a>
+                  <button id="btEdit" class="btn btn-link" type="button">
+                    <a href="/html/user/user_infor.html" >Chỉnh sửa</a>
                   </button>
                 </td>
               </tr>
