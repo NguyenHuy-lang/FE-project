@@ -63,12 +63,10 @@ const deleteProduct = (productId) => {
 
 
 const payPal = () => {
+  console.log("call paypal()");
   const accessToken = localStorage.getItem('accessToken');
 
   const url = "http://localhost:8080/api/v1/pay/";
-  const data = {
-    "costMustPaid": document.querySelector("#cost-must-paid").textContent
-  }
   fetch(url, {
     method: 'GET',
     headers: {

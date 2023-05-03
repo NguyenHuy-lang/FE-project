@@ -24,7 +24,7 @@ const getListProduct = () => {
 
   
   const accessToken = info['access_token'];
-  localStorage.setItem("token", accessToken);
+  localStorage.setItem("accessToken", accessToken);
   console.log("ALL PRODUCT")
   const APIUrl = "http://localhost:8080/api/v1/products";
   fetch(APIUrl, {
@@ -79,6 +79,8 @@ const getAllCate = () => {
 
   
   const accessToken = info['access_token'];
+  localStorage.setItem("accessToken", accessToken);
+
   const APIUrl = "http://localhost:8080/api/v1/categories";
   fetch(APIUrl, {
     method: 'GET',
