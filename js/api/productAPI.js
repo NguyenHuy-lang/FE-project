@@ -2,36 +2,43 @@ const saveInfo = (btn) => {
   localStorage.setItem("endpoint", btn.getAttribute("id"));
   console.log(localStorage.getItem("endpoint"))
 }
+let info = JSON.parse(localStorage.getItem('authInfo'))
 
+console.log(info)
+console.log(info['access_token'])
+console.log(info['expires_in'])
+
+
+const accessToken = info['access_token'];
 const getListProduct = () => {
   params = {}
   let regex = /([^&=]+)=([^&]*)/g, m
   while (m = regex.exec(location.href)) {
-      params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+    params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
   }
 
   if (Object.keys(params).length > 0) {
-      localStorage.setItem('authInfo', JSON.stringify(params))
+    localStorage.setItem('authInfo', JSON.stringify(params))
   }
 
   // window.history.pushState({}, document.title, "/" + "profile.html")
 
-  let info = JSON.parse(localStorage.getItem('authInfo'))
+  // let info = JSON.parse(localStorage.getItem('authInfo'))
 
-  console.log(info)
-  console.log(info['access_token'])
-  console.log(info['expires_in'])
+  // console.log(info)
+  // console.log(info['access_token'])
+  // console.log(info['expires_in'])
 
-  
-  const accessToken = info['access_token'];
+
+  // const accessToken = info['access_token'];
   console.log("ALL PRODUCT")
   const APIUrl = "http://localhost:8080/api/v1/products";
   fetch(APIUrl, {
     method: 'GET',
     headers: {
-       'Authorization': `Bearer ${accessToken}`,
-       'content-type': 'application/json' 
-      },
+      'Authorization': `Bearer ${accessToken}`,
+      'content-type': 'application/json'
+    },
   }).then((response) => response.json())
     .then((data) => {
       let render = data.map((item, index) => {
@@ -61,11 +68,11 @@ const getAllCate = () => {
   params = {}
   let regex = /([^&=]+)=([^&]*)/g, m
   while (m = regex.exec(location.href)) {
-      params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+    params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
   }
 
   if (Object.keys(params).length > 0) {
-      localStorage.setItem('authInfo', JSON.stringify(params))
+    localStorage.setItem('authInfo', JSON.stringify(params))
   }
 
   // window.history.pushState({}, document.title, "/" + "profile.html")
@@ -76,15 +83,15 @@ const getAllCate = () => {
   console.log(info['access_token'])
   console.log(info['expires_in'])
 
-  
+
   const accessToken = info['access_token'];
   const APIUrl = "http://localhost:8080/api/v1/categories";
   fetch(APIUrl, {
     method: 'GET',
-    headers: { 
+    headers: {
       'Authorization': `Bearer ${accessToken}`,
       'content-type': 'application/json'
-     },
+    },
   }).then((response) => response.json())
     .then((data) => {
       let render = data.map((item, index) => {
@@ -108,7 +115,10 @@ const getListProductByCate = () => {
   console.log(APIUrl);
   fetch(APIUrl, {
     method: 'GET',
-    headers: { 'content-type': 'application/json' },
+    headers: {
+      'content-type': 'application/json',
+      'Authorization': `Bearer ${accessToken}`,
+    },
   }).then((response) => response.json())
     .then((data) => {
       let render = data.map((item, index) => {
@@ -216,7 +226,7 @@ const getProductComment = () => {
     .then((data) => {
       console.log(data);
       let render = data.map((item, index) => {
-        let commentHTML =  `
+        let commentHTML = `
         <div class="Commenr_list-rating">
           <div class="Comment_avtar">
             <img src="/Image/IMG_1733 (1).JPG" alt="avtar" class="avtar" />
@@ -232,11 +242,11 @@ const getProductComment = () => {
             </div>
           </div>
         </div>`;
-        if(item.customer.id == 1) commentHTML += `<div class="Button">
+        if (item.customer.id == 1) commentHTML += `<div class="Button">
         <button class="new-button" onClick="deleteCommentById(${item.id})">Xóa</button>
         <button class="new-button" onClick="showPopup(${item.id}, '${item.name}')">Chỉnh sửa</button>
       </div>`
-      return commentHTML;
+        return commentHTML;
       });
       document.querySelector("#product_comment").innerHTML = render.join('');
     });
@@ -255,7 +265,7 @@ function updateComment() {
   console.log(document.getElementById('editableText').value)
   const endpoint = localStorage.getItem("endpoint");
   const commentId = document.getElementById("hiddenCommentID").value;
-  const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint + "/comments/" + commentId ;
+  const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint + "/comments/" + commentId;
   const data = {
     id: commentId,
     customer: {

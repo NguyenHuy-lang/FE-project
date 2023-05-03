@@ -1,7 +1,7 @@
 
 
 const apisite = 'http://localhost:8080/';
-
+const accessToken = localStorage.getItem('accessToken');
 //search
 
 const searchResults = document.querySelector('.search-results');
@@ -9,7 +9,13 @@ const searchInput = document.querySelector('#search input');
 function searchcategory() {
     const query = searchInput.value;
     const url = apisite + 'api/v1/admin/categories/search/' + query;
-    fetch(url)
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Authorization': `Bearer ${accessToken}`,
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const results = document.querySelector('.search-results');
@@ -50,11 +56,12 @@ function openaddform() {
             id: cateId,
             name: cateName
         }
-        fetch(apisite+"api/v1/admin/categories", {
+        fetch(apisite + "api/v1/admin/categories", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                // 'Authorization': `Bearer ${accessToken}`,
             }
         }).then(function (response) {
             console.log(response);
@@ -67,7 +74,14 @@ function openaddform() {
 
 
 //list category
-fetch(apisite + "api/v1/categories").then(
+
+fetch(apisite + "api/v1/categories", {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': `Bearer ${accessToken}`,
+    }
+}).then(
     res => {
         res.json().then(
             data => {
@@ -90,6 +104,9 @@ fetch(apisite + "api/v1/categories").then(
                     });
                     document.getElementById('data_category').innerHTML = temp;
                 }
+                else {
+                    document.querySelector("#data_category").innerHTML = "Hiện tại chưa có dữ liệu";
+                }
             }
         )
     }
@@ -103,7 +120,13 @@ function populateCategoryWithApiData(id) {
     var cateNameField = document.querySelector('#catename');
     $('.hidden-form').show();
     // Fetch the product data from the server
-    fetch(apisite + `api/v1/admin/categories/${id}`)
+    fetch(apisite + `api/v1/admin/categories/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Authorization': `Bearer ${accessToken}`,
+        }
+    })
         .then(response => response.json())
         .then(category => {
             // Set the values of the form fields to the corresponding data of the product
@@ -133,7 +156,8 @@ updateForm.addEventListener('submit', (event) => {
     fetch(apisite + `api/v1/admin/categories/${cateId}`, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            // 'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(data)
     })

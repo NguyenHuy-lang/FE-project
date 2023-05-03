@@ -1,5 +1,5 @@
 const apisite = 'http://localhost:8080/';
-
+const accessToken = localStorage.getItem('accessToken');
 //search
 
 const searchResults = document.querySelector('.search-results');
@@ -7,7 +7,13 @@ const searchInput = document.querySelector('#search input');
 function searchcategory() {
     const query = searchInput.value;
     const url = apisite + 'api/v1/admin/payment-methods/search/' + query;
-    fetch(url)
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Authorization': `Bearer ${accessToken}`,
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const results = document.querySelector('.search-results');
@@ -50,7 +56,8 @@ function openaddform() {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                // 'Authorization': `Bearer ${accessToken}`,
             }
         }).then(function (response) {
             console.log(response);
@@ -62,8 +69,14 @@ function openaddform() {
 
 
 
-//list category
-fetch(apisite + "api/v1/admin/payment-methods").then(
+//list 
+fetch(apisite + "api/v1/admin/payment-methods", {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': `Bearer ${accessToken}`,
+    }
+}).then(
     res => {
         res.json().then(
             data => {
@@ -99,7 +112,13 @@ function populatePaymentWithApiData(id) {
     var payNameField = document.querySelector('#payname');
     $('.hidden-form').show();
     // Fetch the product data from the server
-    fetch(apisite + `api/v1/admin/payment-methods/${id}`)
+    fetch(apisite + `api/v1/admin/payment-methods/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Authorization': `Bearer ${accessToken}`,
+        }
+    })
         .then(response => response.json())
         .then(payment => {
             // Set the values of the form fields to the corresponding data of the product
@@ -129,7 +148,8 @@ updateForm.addEventListener('submit', (event) => {
     fetch(apisite + `api/v1/admin/payment-methods/${payId}`, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            // 'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(data)
     })

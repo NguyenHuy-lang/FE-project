@@ -1,4 +1,9 @@
-fetch('http://localhost:8080/api/v1/admin/orders')
+
+apisite = "http://localhost:8080/";
+accessToken = localStorage.getItem("accessToken");
+
+
+fetch(apisite + 'api/v1/admin/orders')
     .then(response => response.json())
     .then(orders => {
         // Create a container for the orders
@@ -22,7 +27,7 @@ fetch('http://localhost:8080/api/v1/admin/orders')
             // Create a subtitle for the order
             const subtitle = document.createElement('h6');
             subtitle.className = 'card-subtitle mb-2 text-muted';
-            subtitle.innerText = `Status: ${order.statusOrder}   Total: ${order.costMustPaid}`;
+            subtitle.innerText = `Status: ${order.statusOrder} - Customer: ${order.customer.user.username}   Total: ${order.costMustPaid}`;
 
             // Add the title and subtitle to the card body
             cardBody.appendChild(title);
@@ -44,7 +49,7 @@ fetch('http://localhost:8080/api/v1/admin/orders')
             dropdownMenu.className = 'dropdown-menu';
 
             // Loop through the cart items
-            order.listProductCart.forEach(cartItem => {
+            order.listProductOrder.forEach(cartItem => {
                 // Create a dropdown item for the cart item
                 const dropdownItem = document.createElement('li');
                 dropdownItem.innerText = `${cartItem.product.name} : ${cartItem.quantity}`;

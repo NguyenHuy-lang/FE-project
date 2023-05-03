@@ -1,13 +1,19 @@
 
 const apisite = 'http://localhost:8080/';
-
+const accessToken = localStorage.getItem('accessToken');
 const searchResults = document.querySelector('.search-results');
 const searchInput = document.querySelector('#search input');
 
 function searchproduct() {
     const query = searchInput.value;
     const url = apisite + 'api/v1/products/search/' + query;
-    fetch(url)
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Authorization': `Bearer ${accessToken}`,
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const results = document.querySelector('.search-results');
@@ -39,11 +45,12 @@ document.addEventListener('click', event => {
 });
 
 function deleteItem(itemId) {
-    fetch(`http://localhost:8080/api/v1/admin/products/${itemId}`, {
+    fetch(apisite + `api/v1/admin/products/${itemId}`, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
             // add any other necessary headers, such as authentication tokens
+            // 'Authorization': `Bearer ${accessToken}`
         }
     })
         .then(response => {
@@ -74,7 +81,13 @@ function populateFormWithApiData(id) {
     const categorySelect = document.querySelector('#category-select');
     $('.hidden-form').show();
     // Fetch the product data from the server
-    fetch(`http://127.0.0.1:8080/api/v1/admin/products/${id}`)
+    fetch(apisite + `api/v1/admin/products/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'Authorization': `Bearer ${accessToken}`,
+        }
+    })
         .then(response => response.json())
         .then(product => {
             // Set the values of the form fields to the corresponding data of the product
@@ -116,10 +129,11 @@ updateForm.addEventListener('submit', (event) => {
         }
     };
 
-    fetch(`http://127.0.0.1:8080/api/v1/admin/products/${productId}`, {
+    fetch(apisite + `api/v1/admin/products/${productId}`, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            // 'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(data)
     })
@@ -135,7 +149,13 @@ updateForm.addEventListener('submit', (event) => {
 });
 
 
-fetch("http://127.0.0.1:8080/api/v1/admin/products").then(
+fetch(apisite + "api/v1/admin/products", {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+        // 'Authorization': `Bearer ${accessToken}`,
+    }
+}).then(
     res => {
         res.json().then(
             data => {
