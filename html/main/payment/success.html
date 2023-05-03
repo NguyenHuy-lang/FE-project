@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Process payment loading.....</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1 id="result">Process payment loading.....</h1>
+    <p>Thank you for your payment. Your order has been successfully processed.</p>
+    <button>Back to Shop</button>
+</body>
+<script>
+    params = {}
+    let regex = /([^&=]+)=([^&]*)/g, m
+    while (m = regex.exec(location.href)) {
+        params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+    }
+
+    if (Object.keys(params).length > 0) {
+        localStorage.setItem('authInfo', JSON.stringify(params))
+    }
+
+    // window.history.pushState({}, document.title, "/" + "profile.html")
+
+    let info = JSON.parse(localStorage.getItem('authInfo'))
+
+    console.log(info)
+    console.log(info['http://127.0.0.1:5500/html/main/payment/success.html?paymentId'])
+    console.log(info['PayerID'])
+
+    const url = `http://localhost:8080/api/v1/pay/success?paymentId=${info['http://127.0.0.1:5500/html/main/payment/success.html?paymentId']}&PayerID=${info['PayerID']}`
+    console.log(url)
+    const accessToken = localStorage.getItem('accessToken');
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+        }
+
+    }).then(response => response.text())
+        .then(data => {
+            if(data === "success") {
+                console.log(data);
+                const change = document.querySelector("#result");
+                change.textContent = "Success Payment";
+            } else {
+                console.log(data);
+                const change = document.querySelector("#result");
+                change.textContent = "Failure Payment";
+            }
+        })
+
+
+
+
+
+</script>
+
+</html>

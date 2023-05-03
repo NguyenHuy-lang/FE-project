@@ -29,8 +29,19 @@ const getListProduct = () => {
   // console.log(info['access_token'])
   // console.log(info['expires_in'])
 
+<<<<<<< HEAD
 
   // const accessToken = info['access_token'];
+=======
+  
+  var accessToken;
+  if(localStorage.getItem("accessToken") == null) {
+    const accessToken = info['access_token'];
+    localStorage.setItem("accessToken", accessToken);
+  } else {
+    accessToken = localStorage.getItem("accessToken");
+  }
+>>>>>>> c2a4e635d0473866519a5fd29c2bb8461b99bd53
   console.log("ALL PRODUCT")
   const APIUrl = "http://localhost:8080/api/v1/products";
   fetch(APIUrl, {
@@ -83,8 +94,20 @@ const getAllCate = () => {
   console.log(info['access_token'])
   console.log(info['expires_in'])
 
+<<<<<<< HEAD
 
   const accessToken = info['access_token'];
+=======
+  
+  var accessToken;
+  if(localStorage.getItem("accessToken") == null) {
+    const accessToken = info['access_token'];
+    localStorage.setItem("accessToken", accessToken);
+  } else {
+    accessToken = localStorage.getItem("accessToken");
+  }
+
+>>>>>>> c2a4e635d0473866519a5fd29c2bb8461b99bd53
   const APIUrl = "http://localhost:8080/api/v1/categories";
   fetch(APIUrl, {
     method: 'GET',
