@@ -23,8 +23,13 @@ const getListProduct = () => {
   console.log(info['expires_in'])
 
   
-  const accessToken = info['access_token'];
-  localStorage.setItem("accessToken", accessToken);
+  var accessToken;
+  if(localStorage.getItem("accessToken") == null) {
+    const accessToken = info['access_token'];
+    localStorage.setItem("accessToken", accessToken);
+  } else {
+    accessToken = localStorage.getItem("accessToken");
+  }
   console.log("ALL PRODUCT")
   const APIUrl = "http://localhost:8080/api/v1/products";
   fetch(APIUrl, {
@@ -78,8 +83,13 @@ const getAllCate = () => {
   console.log(info['expires_in'])
 
   
-  const accessToken = info['access_token'];
-  localStorage.setItem("accessToken", accessToken);
+  var accessToken;
+  if(localStorage.getItem("accessToken") == null) {
+    const accessToken = info['access_token'];
+    localStorage.setItem("accessToken", accessToken);
+  } else {
+    accessToken = localStorage.getItem("accessToken");
+  }
 
   const APIUrl = "http://localhost:8080/api/v1/categories";
   fetch(APIUrl, {
