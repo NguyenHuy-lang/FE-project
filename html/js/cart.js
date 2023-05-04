@@ -23,7 +23,11 @@ const getCart = () => {
                   <td>${index + 1}</td>
                   <td id="${index + 1}-id-product">${item.product.name} </td>
                   <td id="${index + 1}-id-product">${item.price} </td>
-                  <td id="${index + 1}-id-product">${item.quantity} </td>
+                  <td id="${index + 1}-id-product" class="product-quantity">
+                    <button onclick="decreaseQuantity(${index + 1})">-</button>
+                    <span id="${index + 1}-quantity">${item.quantity}</span>
+                    <button onclick="increaseQuantity(${index + 1})">+</button>
+                  </td>
                   <td id="${index + 1}-id-product">${item.quantity * item.price} </td>
 
                   <td><button class="delete" id="${item.id}" onclick="deleteProduct(${item.id})">Delete</button></td>
