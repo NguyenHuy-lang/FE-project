@@ -1,53 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta content="IE=edge" http-equiv="X-UA-Compatible" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <link href="/css/cart.css" rel="stylesheet" />
-</head>
+  </head>
 
-<body>
-    <p>Order Id <span id="cart-id"></span></p>
-    <p>Create at <span id="create-date"></span></p>
-    <p>Receive at <span id="receive-date"></span></p>
-    <p>Cost temp <span id="cost-temp"></span></p>
-    <p>Cost discount <span id="cost-discount"></span></p>
-    <p>Const must paid <span id="cost-must-paid"></span></p>
-    
+  <body>
     <div class="Home">
-        <div class="HomeMain">
-            <div class="Main">
-                <form class="From-table" method="post">
-                    <div class="Table">
-                        <table border="1px solid rgb(222, 226, 230)" class="table">
-                            <tr>
-                                <th class="product-thumbnail">Image</th>
-                                <th class="product-name">Product</th>
-                                <th class="product-price">Price</th>
-                                <th class="product-quantity">Quantity</th>
-                                <th class="product-total">Total</th>
-                                <th class="product-remove">Remove</th>
-                            </tr>
-                            <tbody id="main">
-
-                            </tbody>
-                        </table>
-                    </div>
-                </form>
-                <div class="Button_fun">
-                    <button class="fun">
-                        <a class="Bt" href="/main/shop.html">Tiếp tục mua sắm</a>
-                    </button>
-                    <button class="fun" onclick="payPal()">
-                        <a class="Bt" href="/main/payment.html">Thanh toán</a>
-                    </button>
-                </div>
+      <div class="HomeMain">
+        <div class="Main">
+          <form class="From-table" method="post">
+            <div class="Table">
+              <table border="1px solid rgb(222, 226, 230)" class="table">
+                <tr>
+                  <th class="product-thumbnail">STT</th>
+                  <th class="product-name">Product</th>
+                  <th class="product-price">Price</th>
+                  <th class="product-quantity">Quantity</th>
+                  <th class="product-total">Total</th>
+                  <th class="product-remove">Remove</th>
+                </tr>
+                <tbody id="main"></tbody>
+              </table>
             </div>
+          </form>
+          <div class="Information">
+            <p>Order Id <span id="cart-id"></span></p>
+            <p>Create at <span id="create-date"></span></p>
+            <p>Receive at <span id="receive-date"></span></p>
+            <p>Cost temp <span id="cost-temp"></span></p>
+            <p>Cost discount <span id="cost-discount"></span></p>
+            <p>Const must paid <span id="cost-must-paid"></span></p>
+          </div>
+          <div class="Button_fun">
+            <button class="fun">
+              <a class="Bt" href="/html/main/shop.html">Tiếp tục mua sắm</a>
+            </button>
+            <button class="fun" onclick="payPal()">
+              <a class="Bt" href="/html/main/payment/success.html"
+                >Thanh toán</a
+              >
+            </button>
+          </div>
         </div>
+      </div>
     </div>
     <script src="../js/cart.js"></script>
-</body>
-
+  </body>
 </html>
