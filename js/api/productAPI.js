@@ -1,44 +1,45 @@
 const saveInfo = (btn) => {
   localStorage.setItem("endpoint", btn.getAttribute("id"));
-  console.log(localStorage.getItem("endpoint"))
-}
+  console.log(localStorage.getItem("endpoint"));
+};
 
 const getListProduct = () => {
-  params = {}
-  let regex = /([^&=]+)=([^&]*)/g, m
-  while (m = regex.exec(location.href)) {
-      params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+  params = {};
+  let regex = /([^&=]+)=([^&]*)/g,
+    m;
+  while ((m = regex.exec(location.href))) {
+    params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
   }
 
   if (Object.keys(params).length > 0) {
-      localStorage.setItem('authInfo', JSON.stringify(params))
+    localStorage.setItem("authInfo", JSON.stringify(params));
   }
 
   // window.history.pushState({}, document.title, "/" + "profile.html")
 
-  let info = JSON.parse(localStorage.getItem('authInfo'))
+  let info = JSON.parse(localStorage.getItem("authInfo"));
 
-  console.log(info)
-  console.log(info['access_token'])
-  console.log(info['expires_in'])
+  console.log(info);
+  console.log(info["access_token"]);
+  console.log(info["expires_in"]);
 
-  
   var accessToken;
-  if(localStorage.getItem("accessToken") == null) {
-    const accessToken = info['access_token'];
+  if (localStorage.getItem("accessToken") == null) {
+    const accessToken = info["access_token"];
     localStorage.setItem("accessToken", accessToken);
   } else {
     accessToken = localStorage.getItem("accessToken");
   }
-  console.log("ALL PRODUCT")
+  console.log("ALL PRODUCT");
   const APIUrl = "http://localhost:8080/api/v1/products";
   fetch(APIUrl, {
-    method: 'GET',
+    method: "GET",
     headers: {
-       'Authorization': `Bearer ${accessToken}`,
-       'content-type': 'application/json' 
-      },
-  }).then((response) => response.json())
+      Authorization: `Bearer ${accessToken}`,
+      "content-type": "application/json",
+    },
+  })
+    .then((response) => response.json())
     .then((data) => {
       let render = data.map((item, index) => {
         return `<div class="List_item">
@@ -59,33 +60,33 @@ const getListProduct = () => {
                 </div>
               </div>`;
       });
-      document.querySelector("#itemList").innerHTML = render.join('');
+      document.querySelector("#itemList").innerHTML = render.join("");
     });
-}
+};
 
 const getAllCate = () => {
-  params = {}
-  let regex = /([^&=]+)=([^&]*)/g, m
-  while (m = regex.exec(location.href)) {
-      params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+  params = {};
+  let regex = /([^&=]+)=([^&]*)/g,
+    m;
+  while ((m = regex.exec(location.href))) {
+    params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
   }
 
   if (Object.keys(params).length > 0) {
-      localStorage.setItem('authInfo', JSON.stringify(params))
+    localStorage.setItem("authInfo", JSON.stringify(params));
   }
 
   // window.history.pushState({}, document.title, "/" + "profile.html")
 
-  let info = JSON.parse(localStorage.getItem('authInfo'))
+  let info = JSON.parse(localStorage.getItem("authInfo"));
 
-  console.log(info)
-  console.log(info['access_token'])
-  console.log(info['expires_in'])
+  console.log(info);
+  console.log(info["access_token"]);
+  console.log(info["expires_in"]);
 
-  
   var accessToken;
-  if(localStorage.getItem("accessToken") == null) {
-    const accessToken = info['access_token'];
+  if (localStorage.getItem("accessToken") == null) {
+    const accessToken = info["access_token"];
     localStorage.setItem("accessToken", accessToken);
   } else {
     accessToken = localStorage.getItem("accessToken");
@@ -93,21 +94,22 @@ const getAllCate = () => {
 
   const APIUrl = "http://localhost:8080/api/v1/categories";
   fetch(APIUrl, {
-    method: 'GET',
-    headers: { 
-      'Authorization': `Bearer ${accessToken}`,
-      'content-type': 'application/json'
-     },
-  }).then((response) => response.json())
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "content-type": "application/json",
+    },
+  })
+    .then((response) => response.json())
     .then((data) => {
       let render = data.map((item, index) => {
         return `<div class="Category_item">
-                <a href="shop.html" onclick="sorting('${item.name}', 'cate')" class="List_Item" id="${item.name}">${item.name}</a>
+                <a href="shop.html" onclick="sorting('${item.name}', 'cate')" class="Category_item" id="${item.name}">${item.name}</a>
               </div>`;
       });
-      document.querySelector("#cate").innerHTML = render.join('');
+      document.querySelector("#cate").innerHTML = render.join("");
     });
-}
+};
 
 function sorting(name, type) {
   console.log(name);
@@ -116,13 +118,16 @@ function sorting(name, type) {
 }
 const getListProductByCate = () => {
   console.log("SEARCH PRODUCT BY CATE");
-  console.log(localStorage.getItem('endpoint'));
-  const APIUrl = "http://localhost:8080/api/v1/categories/" + localStorage.getItem("endpoint");
+  console.log(localStorage.getItem("endpoint"));
+  const APIUrl =
+    "http://localhost:8080/api/v1/categories/" +
+    localStorage.getItem("endpoint");
   console.log(APIUrl);
   fetch(APIUrl, {
-    method: 'GET',
-    headers: { 'content-type': 'application/json' },
-  }).then((response) => response.json())
+    method: "GET",
+    headers: { "content-type": "application/json" },
+  })
+    .then((response) => response.json())
     .then((data) => {
       let render = data.map((item, index) => {
         return `<div class="List_item">
@@ -143,17 +148,20 @@ const getListProductByCate = () => {
             </div>
           </div>`;
       });
-      document.querySelector("#itemList").innerHTML = render.join('');
+      document.querySelector("#itemList").innerHTML = render.join("");
     });
   localStorage.setItem("sort_type", null);
-}
+};
 const searchProduct = () => {
-  console.log("SEARCH PRODUCT BY NAME")
-  const APIUrl = "http://localhost:8080/api/v1/products/search/" + localStorage.getItem("endpoint");
+  console.log("SEARCH PRODUCT BY NAME");
+  const APIUrl =
+    "http://localhost:8080/api/v1/products/search/" +
+    localStorage.getItem("endpoint");
   fetch(APIUrl, {
-    method: 'GET',
-    headers: { 'content-type': 'application/json' },
-  }).then((response) => response.json())
+    method: "GET",
+    headers: { "content-type": "application/json" },
+  })
+    .then((response) => response.json())
     .then((data) => {
       let render = data.map((item, index) => {
         return `<div class="List_item">
@@ -174,19 +182,20 @@ const searchProduct = () => {
             </div>
           </div>`;
       });
-      document.querySelector("#itemList").innerHTML = render.join('');
+      document.querySelector("#itemList").innerHTML = render.join("");
     });
   localStorage.setItem("sort_type", null);
-}
+};
 
 const getProduct = () => {
   const endpoint = localStorage.getItem("endpoint");
   const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint;
   console.log(APIUrl);
   fetch(APIUrl, {
-    method: 'GET',
-    headers: { 'content-type': 'application/json' },
-  }).then((response) => response.json())
+    method: "GET",
+    headers: { "content-type": "application/json" },
+  })
+    .then((response) => response.json())
     .then((data) => {
       let render = `<div class="Product">
                 <div class="Image">
@@ -216,20 +225,22 @@ const getProduct = () => {
               </div>`;
       document.querySelector("#product").innerHTML = render;
     });
-}
+};
 
 const getProductComment = () => {
   const endpoint = localStorage.getItem("endpoint");
-  const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint + "/comment";
+  const APIUrl =
+    "http://localhost:8080/api/v1/products/" + endpoint + "/comment";
 
   fetch(APIUrl, {
-    method: 'GET',
-    headers: { 'content-type': 'application/json' },
-  }).then((response) => response.json())
+    method: "GET",
+    headers: { "content-type": "application/json" },
+  })
+    .then((response) => response.json())
     .then((data) => {
       console.log(data);
       let render = data.map((item, index) => {
-        let commentHTML =  `
+        let commentHTML = `
         <div class="Commenr_list-rating">
           <div class="Comment_avtar">
             <img src="/Image/IMG_1733 (1).JPG" alt="avtar" class="avtar" />
@@ -245,15 +256,16 @@ const getProductComment = () => {
             </div>
           </div>
         </div>`;
-        if(item.customer.id == 1) commentHTML += `<div class="Button">
+        if (item.customer.id == 1)
+          commentHTML += `<div class="Button">
         <button class="new-button" onClick="deleteCommentById(${item.id})">Xóa</button>
         <button class="new-button" onClick="showPopup(${item.id}, '${item.name}')">Chỉnh sửa</button>
-      </div>`
-      return commentHTML;
+      </div>`;
+        return commentHTML;
       });
-      document.querySelector("#product_comment").innerHTML = render.join('');
+      document.querySelector("#product_comment").innerHTML = render.join("");
     });
-}
+};
 
 function showPopup(commentId, name) {
   console.log("POP UP");
@@ -265,10 +277,14 @@ function hidePopup() {
   document.getElementById("myPopup").style.display = "none";
 }
 function updateComment() {
-  console.log(document.getElementById('editableText').value)
+  console.log(document.getElementById("editableText").value);
   const endpoint = localStorage.getItem("endpoint");
   const commentId = document.getElementById("hiddenCommentID").value;
-  const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint + "/comments/" + commentId ;
+  const APIUrl =
+    "http://localhost:8080/api/v1/products/" +
+    endpoint +
+    "/comments/" +
+    commentId;
   const data = {
     id: commentId,
     customer: {
@@ -278,41 +294,41 @@ function updateComment() {
       username: "nguyenhuy",
       user_type: "customer",
       address: "ha noi",
-      phone: "0327894689"
+      phone: "0327894689",
     },
     comment: null,
     listComments: [],
-    name: document.getElementById('editableText').value
+    name: document.getElementById("editableText").value,
   };
 
   const options = {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   };
 
   fetch(APIUrl, options)
-    .then(response => {
+    .then((response) => {
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       return response.json();
     })
-    .then(data => {
-      console.log('Success:', data);
+    .then((data) => {
+      console.log("Success:", data);
       window.location.href = "product.html";
     })
-    .catch(error => {
-      console.error('Error:', error);
+    .catch((error) => {
+      console.error("Error:", error);
     });
-
 }
 
 function addComment() {
   const endpoint = localStorage.getItem("endpoint");
-  const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint + "/comment";
+  const APIUrl =
+    "http://localhost:8080/api/v1/products/" + endpoint + "/comment";
   const data = {
     customer: {
       id: 1,
@@ -321,44 +337,48 @@ function addComment() {
       username: "nguyenhuy",
       user_type: "customer",
       address: "ha noi",
-      phone: "0327894689"
+      phone: "0327894689",
     },
     comment: null,
     listComments: [],
-    name: document.getElementById('commentinput').value
+    name: document.getElementById("commentinput").value,
   };
 
   const options = {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   };
 
   fetch(APIUrl, options)
-    .then(response => {
+    .then((response) => {
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
       return response.json();
     })
-    .then(data => {
-      console.log('Success:', data);
+    .then((data) => {
+      console.log("Success:", data);
     })
-    .catch(error => {
-      console.error('Error:', error);
+    .catch((error) => {
+      console.error("Error:", error);
     });
 }
 
 function deleteCommentById(commentId) {
   const endpoint = localStorage.getItem("endpoint");
-  const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint + "/comments/" + commentId;
+  const APIUrl =
+    "http://localhost:8080/api/v1/products/" +
+    endpoint +
+    "/comments/" +
+    commentId;
   console.log(APIUrl);
   fetch(APIUrl, {
-    method: 'DELETE'
+    method: "DELETE",
   })
-    .then(response => {
+    .then((response) => {
       if (response.ok) {
         alert("Xóa thành công");
         window.location.href = "product.html";
@@ -367,7 +387,7 @@ function deleteCommentById(commentId) {
         window.location.href = "product.html";
       }
     })
-    .catch(error => {
+    .catch((error) => {
       alert("Có lỗi xảy ra");
       window.location.href = "product.html";
     });
