@@ -135,7 +135,7 @@
   cursor: pointer;
 }
 .Button_fun {
-  margin-top: 20px;
+  margin-top: 40px;
   height: 50px;
   width: 1000px;
   display: flex;
@@ -157,4 +157,16 @@
 .fun:hover {
   box-shadow: 0 5px 20px -7px rgba(0, 0, 0, 0.9) !important;
   top: -2px;
+}
+.delete {
+  width: 100px;
+  height: 30px;
+  background-color: rgb(215 62 30);
+  color: white;
+  border: 0;
+  cursor: pointer;
+}
+.Information {
+  margin-top: 20px;
+  margin-left: 680px;
 }
