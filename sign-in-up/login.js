@@ -37,36 +37,56 @@ function login() {
 
     var murl = "http://localhost:8080/api/v1/auth/authenticate";
     const loginData = {
-        email : memail,
-        password : mpassword
+        email: memail,
+        password: mpassword
     }
+
+    var mrole;
     console.log(loginData)
     var load = document.querySelector("#email");
     load.textContent = "loading login";
-    fetch(murl, {
-        method : 'POST',
-        headers : {
-            'Content-Type' : "application/json",
-        },
-        body : JSON.stringify(loginData)
-    })
-    .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to log in');
-        }
-        return response.json();
 
-      })
-      .then(data => {
-        console.log(data)
-        console.log(data.token)
-        console.log("log in ok")
-        localStorage.setItem("accessToken", data.token)
-        load.textContent = "Congratulations login success";
-        window.location.href = "http://127.0.0.1:5500/html/main/shop.html"; // replace with your main page URL
-    
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+    if(document.querySelector("#customer").checked) {
+        mrole = 'customer';
+    } else {
+        mrole = 'admin';
+    }
+
+    console.log("role is ", mrole);
+
+    fetch(murl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': "application/json",
+        },
+        body: JSON.stringify(loginData)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to log in');
+            }
+            return response.json();
+
+        })
+        .then(data => {
+            console.log(data)
+            console.log(data.token)
+            console.log("log in ok")
+            localStorage.setItem("accessToken", data.token)
+            load.textContent = "Congratulations login success";
+            console.log(mrole)
+            if (mrole == 'customer'){
+                window.location.href = "http://127.0.0.1:5500/html/main/shop.html"; // replace with your main page URL
+            } else {
+                window.location.href = "http://127.0.0.1:5500/html/admin/index.html"; // replace with your main page URL
+            }
+
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+function goRegister() {
+    window.location.href = 'http://127.0.0.1:5500/sign-in-up/register.html';
 }

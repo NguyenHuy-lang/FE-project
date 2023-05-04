@@ -49,7 +49,7 @@ const getListProduct = () => {
     .then((data) => {
       let render = data.map((item, index) => {
         return `<div class="List_item">
-                <div class="Item_infor">
+                <div class="Item_infor" id="${item.id}">
                   <img
                     src="${item.imgPath}"
                     alt="Anh ${item.id}"
@@ -59,7 +59,7 @@ const getListProduct = () => {
                   <p style="margin-top: 10px">${item.price}</p>
                 </div>
                 <div class="Button">
-                  <button class="Bt">Thêm vào giỏ hàng</button>
+                  <button class="Bt" onclick="addToCart(${item.id})">Thêm vào giỏ hàng</button>
                   <button class="Bt" onclick="saveInfo(this)" id="${item.id}">
                     <a href="product.html" class="Bt_text">Xem chi tiết</a>
                   </button>
@@ -219,7 +219,7 @@ const getProduct = () => {
                   <input type="text" id="text" class="Quantity_input" />
                 </div>
                 <div class="Order">
-                  <button class="button_order">
+                  <button class="button_order" onclick="addToCart()">
                     <a href="/main/cart.html" class="Order_text">Thêm vào giỏ hàng</a>
                   </button>
                 </div>

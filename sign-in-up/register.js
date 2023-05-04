@@ -36,33 +36,37 @@ function register() {
     var mpassword = document.querySelector("#password").value;
     var mphone = document.querySelector("#phone").value;
     var maddress = document.querySelector("#address").value;
+    var musername = document.querySelector("#username").value;
+    var mgender = document.querySelector("#gender").value;
     var murl = "http://localhost:8080/api/v1/auth/register";
     const registerData = {
-        email : memail,
-        password : mpassword,
-        phone : mphone,
-        address : maddress
+        email: memail,
+        password: mpassword,
+        phone: mphone,
+        address: maddress,
+        username: musername,
+        gender: mgender
     }
     console.log(registerData)
-    var load = document.querySelector("#email");
+    var load = document.querySelector("#my-email");
     load.textContent = "loading register";
     fetch(murl, {
-        method : 'POST',
-        headers : {
-            'Content-Type' : "application/json",
+        method: 'POST',
+        headers: {
+            'Content-Type': "application/json",
         },
-        body : JSON.stringify(registerData)
+        body: JSON.stringify(registerData)
     })
-    .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to log in');
-        }
-        // handle successful login here
-        load.textContent = "Congratulations register success";
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to log in');
+            }
+            // handle successful login here
+            load.textContent = "Congratulations register success";
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 
 }
 
@@ -118,6 +122,11 @@ async function submitForm() {
 
 }
 
+
+function goLogin() {
+    console.log("login")
+    window.location.href = 'http://127.0.0.1:5500/sign-in-up/login.html';
+}
 
 window.onload = function () {
     if (location.href.length > 50) {
