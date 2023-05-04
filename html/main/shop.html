@@ -7,6 +7,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/css/header.css" />
   <link rel="stylesheet" href="/css/shop.css" />
+  <style>
+    body {
+        margin: 0;
+        font-family: sans-serif;
+    }
+
+
+    header h1 {
+        margin: 0;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #3e8e41;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
 
 <body>
@@ -49,7 +78,9 @@
       </div>
     </header>
     <div class="Category" id="cate">
-      <script> getAllCate()</script>
+      <script>
+        getAllCate()
+      </script>
     </div>
     <main>
       <div class="HomeMain" id="itemList">
@@ -57,13 +88,35 @@
           const sort_type = localStorage.getItem("sort_type");
           if (sort_type == "cate") {
             getListProductByCate();
-          }
-          else if (sort_type == "search") searchProduct();
+          } else if (sort_type == "search") searchProduct();
           else getListProduct();
         </script>
       </div>
     </main>
+    <footer>
+      <div class="contact-box-form">
+        <button id="chat-btn">
+          <i class="fab fa-facebook-messenger"></i>
+          Chat on Messenger
+        </button>
+      </div>
+    </footer>
   </div>
+  <script>
+    const chatBtn = document.getElementById('chat-btn');
+
+    chatBtn.addEventListener('click', () => {
+      fetch('http://localhost:8080/api/v1/messenger-chat')
+        .then(response => {
+          if (response.ok) {
+            window.location.href = response.url;
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    });
+  </script>
 </body>
 
 </html>
