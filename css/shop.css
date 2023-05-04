@@ -125,8 +125,6 @@ header {
   color: white;
   text-decoration: none;
 }
-<<<<<<< HEAD
-=======
 .Category {
   width: 100%;
   height: 60px;
@@ -152,4 +150,3 @@ header {
 .List_item:active {
   color: rgb(201, 160, 235);
 }
->>>>>>> huychu

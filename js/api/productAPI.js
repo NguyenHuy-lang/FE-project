@@ -115,13 +115,41 @@ const saveInfo = (btn) => {
     localStorage.setItem("sort_type", type);
   }
   const getListProductByCate = () => {
+    params = {}
+    let regex = /([^&=]+)=([^&]*)/g, m
+    while (m = regex.exec(location.href)) {
+        params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+    }
+  
+    if (Object.keys(params).length > 0) {
+        localStorage.setItem('authInfo', JSON.stringify(params))
+    }
+  
+    // window.history.pushState({}, document.title, "/" + "profile.html")
+  
+    let info = JSON.parse(localStorage.getItem('authInfo'))
+  
+    console.log(info)
+    console.log(info['access_token'])
+    console.log(info['expires_in'])
+  
+    
+    var accessToken;
+    if(localStorage.getItem("accessToken") == null) {
+      const accessToken = info['access_token'];
+      localStorage.setItem("accessToken", accessToken);
+    } else {
+      accessToken = localStorage.getItem("accessToken");
+    }
     console.log("SEARCH PRODUCT BY CATE");
     console.log(localStorage.getItem('endpoint'));
     const APIUrl = "http://localhost:8080/api/v1/categories/" + localStorage.getItem("endpoint");
     console.log(APIUrl);
     fetch(APIUrl, {
       method: 'GET',
-      headers: { 'content-type': 'application/json' },
+      headers: { 
+        'content-type': 'application/json ', 
+      'Authorization': `Bearer ${accessToken}` },
     }).then((response) => response.json())
       .then((data) => {
         let render = data.map((item, index) => {
@@ -148,11 +176,39 @@ const saveInfo = (btn) => {
     localStorage.setItem("sort_type", null);
   }
   const searchProduct = () => {
+    params = {}
+    let regex = /([^&=]+)=([^&]*)/g, m
+    while (m = regex.exec(location.href)) {
+        params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+    }
+  
+    if (Object.keys(params).length > 0) {
+        localStorage.setItem('authInfo', JSON.stringify(params))
+    }
+  
+    // window.history.pushState({}, document.title, "/" + "profile.html")
+  
+    let info = JSON.parse(localStorage.getItem('authInfo'))
+  
+    console.log(info)
+    console.log(info['access_token'])
+    console.log(info['expires_in'])
+  
+    
+    var accessToken;
+    if(localStorage.getItem("accessToken") == null) {
+      const accessToken = info['access_token'];
+      localStorage.setItem("accessToken", accessToken);
+    } else {
+      accessToken = localStorage.getItem("accessToken");
+    }
+  
     console.log("SEARCH PRODUCT BY NAME")
     const APIUrl = "http://localhost:8080/api/v1/products/search/" + localStorage.getItem("endpoint");
     fetch(APIUrl, {
       method: 'GET',
-      headers: { 'content-type': 'application/json' },
+      headers: { 'content-type': 'application/json', 
+      'Authorization': `Bearer ${accessToken}` },
     }).then((response) => response.json())
       .then((data) => {
         let render = data.map((item, index) => {
@@ -180,12 +236,40 @@ const saveInfo = (btn) => {
   }
   
   const getProduct = () => {
+    params = {}
+    let regex = /([^&=]+)=([^&]*)/g, m
+    while (m = regex.exec(location.href)) {
+        params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+    }
+  
+    if (Object.keys(params).length > 0) {
+        localStorage.setItem('authInfo', JSON.stringify(params))
+    }
+  
+    // window.history.pushState({}, document.title, "/" + "profile.html")
+  
+    let info = JSON.parse(localStorage.getItem('authInfo'))
+  
+    console.log(info)
+    console.log(info['access_token'])
+    console.log(info['expires_in'])
+  
+    
+    var accessToken;
+    if(localStorage.getItem("accessToken") == null) {
+      const accessToken = info['access_token'];
+      localStorage.setItem("accessToken", accessToken);
+    } else {
+      accessToken = localStorage.getItem("accessToken");
+    }
+  
     const endpoint = localStorage.getItem("endpoint");
     const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint;
     console.log(APIUrl);
     fetch(APIUrl, {
       method: 'GET',
-      headers: { 'content-type': 'application/json' },
+      headers: { 'content-type': 'application/json', 
+      'Authorization': `Bearer ${accessToken}` },
     }).then((response) => response.json())
       .then((data) => {
         let render = `<div class="Product">
@@ -219,16 +303,46 @@ const saveInfo = (btn) => {
   }
   
   const getProductComment = () => {
+    params = {}
+    let regex = /([^&=]+)=([^&]*)/g, m
+    while (m = regex.exec(location.href)) {
+        params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+    }
+  
+    if (Object.keys(params).length > 0) {
+        localStorage.setItem('authInfo', JSON.stringify(params))
+    }
+  
+    // window.history.pushState({}, document.title, "/" + "profile.html")
+  
+    let info = JSON.parse(localStorage.getItem('authInfo'))
+  
+    console.log(info)
+    console.log(info['access_token'])
+    console.log(info['expires_in'])
+  
+    
+    var accessToken;
+    if(localStorage.getItem("accessToken") == null) {
+      const accessToken = info['access_token'];
+      localStorage.setItem("accessToken", accessToken);
+    } else {
+      accessToken = localStorage.getItem("accessToken");
+    }
+
     const endpoint = localStorage.getItem("endpoint");
     const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint + "/comment";
   
     fetch(APIUrl, {
       method: 'GET',
-      headers: { 'content-type': 'application/json' },
+      headers: { 
+        'content-type': 'application/json' ,
+        'Authorization': `Bearer ${accessToken}`},
     }).then((response) => response.json())
       .then((data) => {
         console.log(data);
         let render = data.map((item, index) => {
+          console.log(item);
           let commentHTML =  `
           <div class="Commenr_list-rating">
             <div class="Comment_avtar">
@@ -236,7 +350,7 @@ const saveInfo = (btn) => {
             </div>
             <div class="Comment_rating">
               <div class="Rating-comment">
-                <div class="Rating-name">${item.customer.username}</div>
+                <div class="Rating-name">${item.customer.user.username}</div>
                 <div class="Comment_comment-list">
                   <div class="Comment_text">
                     ${item.name}
@@ -245,7 +359,7 @@ const saveInfo = (btn) => {
               </div>
             </div>
           </div>`;
-          if(item.customer.id == 1) commentHTML += `<div class="Button">
+          if(item.isUserComment == 1) commentHTML += `<div class="Button">
           <button class="new-button" onClick="deleteCommentById(${item.id})">Xóa</button>
           <button class="new-button" onClick="showPopup(${item.id}, '${item.name}')">Chỉnh sửa</button>
         </div>`
@@ -265,21 +379,39 @@ const saveInfo = (btn) => {
     document.getElementById("myPopup").style.display = "none";
   }
   function updateComment() {
+    params = {}
+    let regex = /([^&=]+)=([^&]*)/g, m
+    while (m = regex.exec(location.href)) {
+        params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+    }
+  
+    if (Object.keys(params).length > 0) {
+        localStorage.setItem('authInfo', JSON.stringify(params))
+    }
+  
+    // window.history.pushState({}, document.title, "/" + "profile.html")
+  
+    let info = JSON.parse(localStorage.getItem('authInfo'))
+  
+    console.log(info)
+    console.log(info['access_token'])
+    console.log(info['expires_in'])
+  
+    
+    var accessToken;
+    if(localStorage.getItem("accessToken") == null) {
+      const accessToken = info['access_token'];
+      localStorage.setItem("accessToken", accessToken);
+    } else {
+      accessToken = localStorage.getItem("accessToken");
+    }
     console.log(document.getElementById('editableText').value)
     const endpoint = localStorage.getItem("endpoint");
     const commentId = document.getElementById("hiddenCommentID").value;
     const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint + "/comments/" + commentId ;
     const data = {
       id: commentId,
-      customer: {
-        id: 1,
-        email: "huynguyend19ptit@gmail.com",
-        password: "123456",
-        username: "nguyenhuy",
-        user_type: "customer",
-        address: "ha noi",
-        phone: "0327894689"
-      },
+      customer: null,
       comment: null,
       listComments: [],
       name: document.getElementById('editableText').value
@@ -288,7 +420,8 @@ const saveInfo = (btn) => {
     const options = {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
       },
       body: JSON.stringify(data)
     };
@@ -311,18 +444,37 @@ const saveInfo = (btn) => {
   }
   
   function addComment() {
+    params = {}
+    let regex = /([^&=]+)=([^&]*)/g, m
+    while (m = regex.exec(location.href)) {
+        params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+    }
+  
+    if (Object.keys(params).length > 0) {
+        localStorage.setItem('authInfo', JSON.stringify(params))
+    }
+  
+    // window.history.pushState({}, document.title, "/" + "profile.html")
+  
+    let info = JSON.parse(localStorage.getItem('authInfo'))
+  
+    console.log(info)
+    console.log(info['access_token'])
+    console.log(info['expires_in'])
+  
+    
+    var accessToken;
+    if(localStorage.getItem("accessToken") == null) {
+      const accessToken = info['access_token'];
+      localStorage.setItem("accessToken", accessToken);
+    } else {
+      accessToken = localStorage.getItem("accessToken");
+    }
+    
     const endpoint = localStorage.getItem("endpoint");
     const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint + "/comment";
     const data = {
-      customer: {
-        id: 1,
-        email: "huynguyend19ptit@gmail.com",
-        password: "123456",
-        username: "nguyenhuy",
-        user_type: "customer",
-        address: "ha noi",
-        phone: "0327894689"
-      },
+      customer: null,
       comment: null,
       listComments: [],
       name: document.getElementById('commentinput').value
@@ -331,7 +483,8 @@ const saveInfo = (btn) => {
     const options = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
       },
       body: JSON.stringify(data)
     };
@@ -352,12 +505,41 @@ const saveInfo = (btn) => {
   }
   
   function deleteCommentById(commentId) {
+    params = {}
+    let regex = /([^&=]+)=([^&]*)/g, m
+    while (m = regex.exec(location.href)) {
+        params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+    }
+  
+    if (Object.keys(params).length > 0) {
+        localStorage.setItem('authInfo', JSON.stringify(params))
+    }
+  
+    // window.history.pushState({}, document.title, "/" + "profile.html")
+  
+    let info = JSON.parse(localStorage.getItem('authInfo'))
+  
+    console.log(info)
+    console.log(info['access_token'])
+    console.log(info['expires_in'])
+  
+    
+    var accessToken;
+    if(localStorage.getItem("accessToken") == null) {
+      const accessToken = info['access_token'];
+      localStorage.setItem("accessToken", accessToken);
+    } else {
+      accessToken = localStorage.getItem("accessToken");
+    }
     const endpoint = localStorage.getItem("endpoint");
     const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint + "/comments/" + commentId;
     console.log(APIUrl);
     fetch(APIUrl, {
-      method: 'DELETE'
-    })
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+    }})
       .then(response => {
         if (response.ok) {
           alert("Xóa thành công");
