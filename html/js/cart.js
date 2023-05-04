@@ -5,15 +5,9 @@ function getCart() {
     method: "GET",
 
     headers: {
-<<<<<<< HEAD
       "content-type": "application/json",
       Authorization: `Bearer ${accessToken}`,
     },
-=======
-       'content-type': 'application/json',
-       'Authorization': `Bearer ${accessToken}`
-      },
->>>>>>> ducanh
   })
     .then((response) => {
       if (response.ok) {
