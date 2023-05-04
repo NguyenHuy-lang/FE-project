@@ -2,45 +2,30 @@
 <html>
 
 <head>
-    <title>My Website</title>
+    <meta charset="utf-8">
+    <title>HDV Nhom 8</title>
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 
 <body>
-    <h1>Welcome to My Website</h1>
-    <div class="fb-customerchat" attribution="setup_tool" page_id="115384261536607" greeting_dialog_display="hide"
-        theme_color="#0084ff" logged_in_greeting="Hi! How can we help you?"
-        logged_out_greeting="Hi! How can we help you?">
+    <div class="container">
+        <h1>Welcome to HDV Nhom 8</h1>
+        <p>Please log in or sign up to continue</p>
+        <div class="row">
+            <div class="col-sm-3">
+                <a href="/sign-in-up/login.html" class="btn btn-primary btn-lg btn-block">Log In</a>
+            </div>
+            <div class="col-sm-3">
+                <a href="/sign-in-up/register.html" class="btn btn-secondary btn-lg btn-block">Sign Up</a>
+            </div>
+        </div>
     </div>
-    <script>
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: '6ae63fb692d614ac5134600cc440d5d0',
-                autoLogAppEvents: true,
-                xfbml: true,
-                version: 'v16.0'
-            });
-        };
 
-        function openChat() {
-            FB.CustomerChat.showDialog();
-        }
-
-        function loadFacebookSDK() {
-            var js,
-                id = 'facebook-jssdk',
-                ref = document.getElementsByTagName('script')[0];
-            if (document.getElementById(id)) {
-                return;
-            }
-            js = document.createElement('script');
-            js.id = id;
-            js.async = true;
-            js.src = "https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js";
-            ref.parentNode.insertBefore(js, ref);
-        }
-
-        loadFacebookSDK();
-    </script>
+    <!-- Link to Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 
 </html>

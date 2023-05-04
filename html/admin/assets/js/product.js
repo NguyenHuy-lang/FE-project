@@ -1,56 +1,43 @@
-// $(document).ready(function () {
-//     $('#search-box').on('keyup', function () {
-//         var query = $(this).val();
-//         var url = 'http://127.0.0.1:8080/api/v1/products/search/' + query;
-//         $.get(url, function (data) {
-//             var results = $('#search-results');
-//             results.empty();
-//             $.each(data, function () {
-//                 results.append($('<option>').text(this.name).val(this.id));
-//             });
-//         });
-//     });
-//     $('#search-results').on('click', 'option', function () {
-//         var formDialog = document.getElementById('form-dialog');
-//         var closeDialogButton = document.getElementById('close-dialog');
-//         var resultId = $(this).val();
-//         const form = document.querySelector('#update-form');
-//         const prdIdField = document.querySelector('#prdid');
-//         const prdNameField = document.querySelector('#prdname');
-//         const descriptionField = document.querySelector('#description');
-//         const img = document.querySelector('.imgsrc');
-//         const priceField = document.querySelector('#price');
-//         const categorySelect = document.querySelector('#category-select');
-//         $('.hidden-form').show();
-//         // Fetch the product data from the server
-//         fetch(`http://127.0.0.1:8080/api/v1/admin/products/${resultId}`)
-//             .then(response => response.json())
-//             .then(product => {
-//                 // Set the values of the form fields to the corresponding data of the product
-//                 prdIdField.value = product.id;
-//                 prdNameField.value = product.name;
-//                 descriptionField.value = product.description;
-//                 img.src = product.imgPath;
-//                 priceField.value = product.price;
-//                 categorySelect.value = product.cate.id;
-//                 formDialog.style.display = 'block';
 
-//             })
-//             .catch(error => console.error(error));
-//         closeDialogButton.addEventListener('click', function () {
-//             formDialog.style.display = 'none';
-//         });
-//     });
-// });
 const apisite = 'http://localhost:8080/';
 
 const searchResults = document.querySelector('.search-results');
 const searchInput = document.querySelector('#search input');
 
+params = {}
+let regex = /([^&=]+)=([^&]*)/g, m
+while (m = regex.exec(location.href)) {
+    params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+}
+
+if (Object.keys(params).length > 0) {
+    localStorage.setItem('authInfo', JSON.stringify(params))
+}
+
+// window.history.pushState({}, document.title, "/" + "profile.html")
+
+let info = JSON.parse(localStorage.getItem('authInfo'))
+
+
+
+var accessToken;
+if (localStorage.getItem("accessToken") == null) {
+    const accessToken = info['access_token'];
+    localStorage.setItem("accessToken", accessToken);
+} else {
+    accessToken = localStorage.getItem("accessToken");
+}
+
 function searchproduct() {
     const query = searchInput.value;
     const url = apisite + 'api/v1/products/search/' + query;
-    fetch(url)
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+        }
+    })
         .then(response => response.json())
         .then(data => {
             const results = document.querySelector('.search-results');
@@ -82,11 +69,12 @@ document.addEventListener('click', event => {
 });
 
 function deleteItem(itemId) {
-    fetch(`http://localhost:8080/api/v1/admin/products/${itemId}`, {
+    fetch(apisite + `api/v1/admin/products/${itemId}`, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
             // add any other necessary headers, such as authentication tokens
+            'Authorization': `Bearer ${accessToken}`
         }
     })
         .then(response => {
@@ -117,7 +105,13 @@ function populateFormWithApiData(id) {
     const categorySelect = document.querySelector('#category-select');
     $('.hidden-form').show();
     // Fetch the product data from the server
-    fetch(`http://127.0.0.1:8080/api/v1/admin/products/${id}`)
+    fetch(apisite + `api/v1/admin/products/${id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+        }
+    })
         .then(response => response.json())
         .then(product => {
             // Set the values of the form fields to the corresponding data of the product
@@ -159,10 +153,11 @@ updateForm.addEventListener('submit', (event) => {
         }
     };
 
-    fetch(`http://127.0.0.1:8080/api/v1/admin/products/${productId}`, {
+    fetch(apisite + `api/v1/admin/products/${productId}`, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(data)
     })
@@ -174,11 +169,18 @@ updateForm.addEventListener('submit', (event) => {
         .catch(error => {
             // handle the error
             console.error(error);
+            console.log("Loi gi vay ban oi");
         });
 });
 
 
-fetch("http://127.0.0.1:8080/api/v1/admin/products").then(
+fetch(apisite + "api/v1/admin/products", {
+    method: 'GET',
+    headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'content-type': 'application/json'
+    },
+}).then(
     res => {
         res.json().then(
             data => {
@@ -195,7 +197,7 @@ fetch("http://127.0.0.1:8080/api/v1/admin/products").then(
                                     <td>
                                         <div class="Button">
                                             <button onclick="deleteItem(${itemData.id})" id="Bt" class="btn btn-warning" type="button">
-                                            <a href="/html/admin/product_list.html" >Delete</a>
+                                            <a href="/html/admin/pages/product_admin/product_list.html" >Delete</a>
                                             </button>
                                             <button onclick="populateFormWithApiData(${itemData.id})" id="Bt" class="btn btn-info" type="button">
                                             <a class="Bt_text">Update</a>
@@ -211,3 +213,22 @@ fetch("http://127.0.0.1:8080/api/v1/admin/products").then(
         )
     }
 )
+fetch(apisite + 'api/v1/categories', {
+    method: 'GET',
+    headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'content-type': 'application/json'
+    },
+})
+    .then(response => response.json())
+    .then(data => {
+        // handle the data
+        const selectElement = document.querySelector('#category-select');
+        data.forEach(category => {
+            const optionElement = document.createElement('option');
+            optionElement.value = category.id;
+            optionElement.textContent = category.name;
+            selectElement.appendChild(optionElement);
+        });
+    });
+
