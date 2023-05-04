@@ -6,7 +6,7 @@ const getCart = () => {
     
     headers: {
        'content-type': 'application/json',
-       'Authorization': `Bearer ${accessToken}`,
+       'Authorization': `Bearer ${accessToken}`
       },
   })
     .then((response) => {

@@ -1,8 +1,35 @@
 
 const apisite = 'http://localhost:8080/';
-const accessToken = localStorage.getItem('accessToken');
+
 const searchResults = document.querySelector('.search-results');
 const searchInput = document.querySelector('#search input');
+
+params = {}
+let regex = /([^&=]+)=([^&]*)/g, m
+while (m = regex.exec(location.href)) {
+    params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+}
+
+if (Object.keys(params).length > 0) {
+    localStorage.setItem('authInfo', JSON.stringify(params))
+}
+
+// window.history.pushState({}, document.title, "/" + "profile.html")
+
+let info = JSON.parse(localStorage.getItem('authInfo'))
+
+console.log(info)
+console.log(info['access_token'])
+console.log(info['expires_in'])
+
+
+var accessToken;
+if (localStorage.getItem("accessToken") == null) {
+    const accessToken = info['access_token'];
+    localStorage.setItem("accessToken", accessToken);
+} else {
+    accessToken = localStorage.getItem("accessToken");
+}
 
 function searchproduct() {
     const query = searchInput.value;
@@ -11,7 +38,7 @@ function searchproduct() {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${accessToken}`,
+            'Authorization': `Bearer ${accessToken}`
         }
     })
         .then(response => response.json())
@@ -50,7 +77,7 @@ function deleteItem(itemId) {
         headers: {
             'Content-Type': 'application/json',
             // add any other necessary headers, such as authentication tokens
-            // 'Authorization': `Bearer ${accessToken}`
+            'Authorization': `Bearer ${accessToken}`
         }
     })
         .then(response => {
@@ -85,7 +112,7 @@ function populateFormWithApiData(id) {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${accessToken}`,
+            'Authorization': `Bearer ${accessToken}`,
         }
     })
         .then(response => response.json())
@@ -133,7 +160,7 @@ updateForm.addEventListener('submit', (event) => {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${accessToken}`,
+            'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(data)
     })
@@ -145,6 +172,7 @@ updateForm.addEventListener('submit', (event) => {
         .catch(error => {
             // handle the error
             console.error(error);
+            console.log("Loi gi vay ban oi");
         });
 });
 
@@ -152,9 +180,9 @@ updateForm.addEventListener('submit', (event) => {
 fetch(apisite + "api/v1/admin/products", {
     method: 'GET',
     headers: {
-        'Content-Type': 'application/json',
-        // 'Authorization': `Bearer ${accessToken}`,
-    }
+        'Authorization': `Bearer ${accessToken}`,
+        'content-type': 'application/json'
+    },
 }).then(
     res => {
         res.json().then(
@@ -172,7 +200,7 @@ fetch(apisite + "api/v1/admin/products", {
                                     <td>
                                         <div class="Button">
                                             <button onclick="deleteItem(${itemData.id})" id="Bt" class="btn btn-warning" type="button">
-                                            <a href="/html/admin/product_list.html" >Delete</a>
+                                            <a href="/html/admin/pages/product_admin/product_list.html" >Delete</a>
                                             </button>
                                             <button onclick="populateFormWithApiData(${itemData.id})" id="Bt" class="btn btn-info" type="button">
                                             <a class="Bt_text">Update</a>
@@ -188,3 +216,22 @@ fetch(apisite + "api/v1/admin/products", {
         )
     }
 )
+fetch(apisite + 'api/v1/categories', {
+    method: 'GET',
+    headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'content-type': 'application/json'
+    },
+})
+    .then(response => response.json())
+    .then(data => {
+        // handle the data
+        const selectElement = document.querySelector('#category-select');
+        data.forEach(category => {
+            const optionElement = document.createElement('option');
+            optionElement.value = category.id;
+            optionElement.textContent = category.name;
+            selectElement.appendChild(optionElement);
+        });
+    });
+

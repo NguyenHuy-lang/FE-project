@@ -1,7 +1,34 @@
 
 
 const apisite = 'http://localhost:8080/';
-const accessToken = localStorage.getItem('accessToken');
+
+
+params = {}
+let regex = /([^&=]+)=([^&]*)/g, m
+while (m = regex.exec(location.href)) {
+    params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+}
+
+if (Object.keys(params).length > 0) {
+    localStorage.setItem('authInfo', JSON.stringify(params))
+}
+
+// window.history.pushState({}, document.title, "/" + "profile.html")
+
+let info = JSON.parse(localStorage.getItem('authInfo'))
+
+console.log(info)
+console.log(info['access_token'])
+console.log(info['expires_in'])
+
+
+var accessToken;
+if (localStorage.getItem("accessToken") == null) {
+    const accessToken = info['access_token'];
+    localStorage.setItem("accessToken", accessToken);
+} else {
+    accessToken = localStorage.getItem("accessToken");
+}
 //search
 
 const searchResults = document.querySelector('.search-results');
@@ -13,7 +40,7 @@ function searchcategory() {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${accessToken}`,
+            'Authorization': `Bearer ${accessToken}`,
         }
     })
         .then(response => response.json())
@@ -61,7 +88,7 @@ function openaddform() {
             body: JSON.stringify(data),
             headers: {
                 "Content-Type": "application/json",
-                // 'Authorization': `Bearer ${accessToken}`,
+                'Authorization': `Bearer ${accessToken}`,
             }
         }).then(function (response) {
             console.log(response);
@@ -79,7 +106,7 @@ fetch(apisite + "api/v1/categories", {
     method: 'GET',
     headers: {
         'Content-Type': 'application/json',
-        // 'Authorization': `Bearer ${accessToken}`,
+        'Authorization': `Bearer ${accessToken}`,
     }
 }).then(
     res => {
@@ -124,7 +151,7 @@ function populateCategoryWithApiData(id) {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${accessToken}`,
+            'Authorization': `Bearer ${accessToken}`,
         }
     })
         .then(response => response.json())
@@ -157,7 +184,7 @@ updateForm.addEventListener('submit', (event) => {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-            // 'Authorization': `Bearer ${accessToken}`,
+            'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify(data)
     })

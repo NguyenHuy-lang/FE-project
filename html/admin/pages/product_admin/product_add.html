@@ -149,7 +149,7 @@
             <div class="card-body">
               <h4 class="card-title">Add product</h4>
               <p class="card-description"></p>
-              <form action="../../pages/product_admin/product_list.html" class="forms-sample">
+              <form action="../../pages/product_admin/product_list.html" class="forms-sample" id="add-form-product">
                 <div class="form-group">
                   <label for="prdname">Name</label>
                   <input class="form-control" id="prdname" placeholder="Tên mặt hàng" type="text" required />
@@ -194,63 +194,7 @@
     <!-- page-body-wrapper ends -->
   </div>
 
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $("#btnadd").click(function (event) {
-        const imgTag = document.querySelector('.imgsrc'); //get the img tag element
-        const srcValue = imgTag.getAttribute('src');
-        var wsUrl = "http://127.0.0.1:8080/api/v1/admin/products";
-        var restrequest = '{"id": null' + ',' +
-          '"name":' + '"' + $("#prdname").val() + '"' + ',' +
-          '"description":' + '"' + $("#description").val() + '"' + ',' +
-          '"imgPath":' + '"' + srcValue + '"' + ',' +
-          '"price":' + $("#price").val() + ',' +
-          '"cate": {"id":' + $("#category-select").val() + '}' + ',' +
-          '"listComment": []' + ',' +
-          '"rating": null}';
-        alert(restrequest);
-        $.ajax({
-          type: "POST",
-          url: wsUrl,
-          contentType: "application/json",
-          dataType: "json",
-          data: restrequest,
-          success: processSuccess,
-          error: processError
-        });
 
-      });
-    });
-
-    function processSuccess(data, status, req) {
-      alert('success');
-      // const xmlResponse = req.responseXML;
-      // console.log(xmlResponse);
-      // const statusElement = xmlResponse.getElementsByTagName('ns2:getOrderResponse')[0];
-      // const statusValue = statusElement.textContent;
-      // console.log(statusValue);
-      // alert(statusValue);
-    }
-
-    function processError(data, status, req) {
-      alert('error ' + data.state);
-      //alert(req.responseText + " " + status);
-    }
-  </script>
-  <script type="text/javascript">
-    fetch('http://localhost:8080/api/v1/categories')
-      .then(response => response.json())
-      .then(data => {
-        // handle the data
-        const selectElement = document.querySelector('#category-select');
-        data.forEach(category => {
-          const optionElement = document.createElement('option');
-          optionElement.value = category.id;
-          optionElement.textContent = category.name;
-          selectElement.appendChild(optionElement);
-        });
-      });
-  </script>
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
@@ -275,6 +219,7 @@
   <!-- End custom js for this page -->
   <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
   <script src="../../assets/js/fileservice.js"></script>
+  <script src="../../assets/js/addproduct.js"></script>
 </body>
 
 </html>
