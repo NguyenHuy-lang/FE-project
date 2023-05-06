@@ -13,8 +13,8 @@ const firebaseConfig = {
   projectId: "hdvnhom8",
   storageBucket: "hdvnhom8.appspot.com",
   messagingSenderId: "321095979248",
-  appId: "1:321095979248:web:fa7f40b6b5eda17e9af235",
-  measurementId: "G-REPQT5RB2Z"
+  appId: "1:321095979248:web:ad6e9a968eb628eb9af235",
+  measurementId: "G-Z5XRFK3DYT"
 };
 
 // Initialize Firebase
