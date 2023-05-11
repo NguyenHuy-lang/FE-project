@@ -73,6 +73,7 @@
         </div>
         <script>
           const submit = () => {
+            event.preventDefault();
             addComment(document.getElementById("commentinput").value);
             window.location.href = "product.html";
           };
