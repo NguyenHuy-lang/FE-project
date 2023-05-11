@@ -18,7 +18,11 @@ const saveInfo = (btn) => {
   
     let info = JSON.parse(localStorage.getItem('authInfo'))
   
-   
+    // console.log(info)
+    // console.log(info['access_token'])
+    // console.log(info['expires_in'])
+  
+    
     var accessToken;
     if(localStorage.getItem("accessToken") == null) {
       const accessToken = info['access_token'];
@@ -74,7 +78,10 @@ const saveInfo = (btn) => {
   
     let info = JSON.parse(localStorage.getItem('authInfo'))
   
-    
+    // console.log(info)
+    // console.log(info['access_token'])
+    // console.log(info['expires_in'])
+  
     
     var accessToken;
     if(localStorage.getItem("accessToken") == null) {
@@ -121,7 +128,10 @@ const saveInfo = (btn) => {
     // window.history.pushState({}, document.title, "/" + "profile.html")
   
     let info = JSON.parse(localStorage.getItem('authInfo'))
-
+  
+    // console.log(info)
+    // console.log(info['access_token'])
+    // console.log(info['expires_in'])
   
     
     var accessToken;
@@ -180,7 +190,9 @@ const saveInfo = (btn) => {
   
     let info = JSON.parse(localStorage.getItem('authInfo'))
   
-    
+    // console.log(info)
+    // console.log(info['access_token'])
+    // console.log(info['expires_in'])
   
     
     var accessToken;
@@ -238,6 +250,9 @@ const saveInfo = (btn) => {
   
     let info = JSON.parse(localStorage.getItem('authInfo'))
   
+    // console.log(info)
+    // console.log(info['access_token'])
+    // console.log(info['expires_in'])
   
     
     var accessToken;
@@ -279,7 +294,7 @@ const saveInfo = (btn) => {
                   </div>
                   <div class="Order">
                     <button class="button_order" onclick="addToCart()">
-                      <a href="/main/cart.html" class="Order_text">Thêm vào giỏ hàng</a>
+                      <a href="./cart.html" class="Order_text">Thêm vào giỏ hàng</a>
                     </button>
                   </div>
                 </div>`;
@@ -302,7 +317,9 @@ const saveInfo = (btn) => {
   
     let info = JSON.parse(localStorage.getItem('authInfo'))
   
-    
+    // console.log(info)
+    // console.log(info['access_token'])
+    // console.log(info['expires_in'])
   
     
     var accessToken;
@@ -376,7 +393,9 @@ const saveInfo = (btn) => {
   
     let info = JSON.parse(localStorage.getItem('authInfo'))
   
-  
+    // console.log(info)
+    // console.log(info['access_token'])
+    // console.log(info['expires_in'])
   
     
     var accessToken;
@@ -432,33 +451,6 @@ const saveInfo = (btn) => {
   }
 
   function addComment() {
-<<<<<<< HEAD
-=======
-    params = {}
-    let regex = /([^&=]+)=([^&]*)/g, m
-    while (m = regex.exec(location.href)) {
-        params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
-    }
-  
-    if (Object.keys(params).length > 0) {
-        localStorage.setItem('authInfo', JSON.stringify(params))
-    }
-  
-    // window.history.pushState({}, document.title, "/" + "profile.html")
-  
-    let info = JSON.parse(localStorage.getItem('authInfo'))
-  
-   
-    
-    var accessToken;
-    if(localStorage.getItem("accessToken") == null) {
-      const accessToken = info['access_token'];
-      localStorage.setItem("accessToken", accessToken);
-    } else {
-      accessToken = localStorage.getItem("accessToken");
-    }
-    
->>>>>>> 301811b70cf98b2b5b9a9cf3a2bf81f6e9cf096f
     const endpoint = localStorage.getItem("endpoint");
     const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint + "/comment";
     const data = {
@@ -500,32 +492,6 @@ const saveInfo = (btn) => {
   }
 
   function deleteCommentById(commentId) {
-<<<<<<< HEAD
-=======
-    params = {}
-    let regex = /([^&=]+)=([^&]*)/g, m
-    while (m = regex.exec(location.href)) {
-        params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
-    }
-  
-    if (Object.keys(params).length > 0) {
-        localStorage.setItem('authInfo', JSON.stringify(params))
-    }
-  
-    // window.history.pushState({}, document.title, "/" + "profile.html")
-  
-    let info = JSON.parse(localStorage.getItem('authInfo'))
-  
-    
-    
-    var accessToken;
-    if(localStorage.getItem("accessToken") == null) {
-      const accessToken = info['access_token'];
-      localStorage.setItem("accessToken", accessToken);
-    } else {
-      accessToken = localStorage.getItem("accessToken");
-    }
->>>>>>> 301811b70cf98b2b5b9a9cf3a2bf81f6e9cf096f
     const endpoint = localStorage.getItem("endpoint");
     const APIUrl = "http://localhost:8080/api/v1/products/" + endpoint + "/comments/" + commentId;
     console.log(APIUrl);
