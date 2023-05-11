@@ -1,0 +1,3 @@
+function backToHome() {
+    win
+}

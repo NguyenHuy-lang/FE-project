@@ -1,0 +1,3 @@
+function backToHome() {
+    window.loca
+}

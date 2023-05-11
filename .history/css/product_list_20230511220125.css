@@ -42,7 +42,11 @@
   width: 100%;
   margin-top: 15px;
 }
+<<<<<<< HEAD
+#Bt {
+=======
 .Bt {
+>>>>>>> huychu
   width: 100px;
   height: 30px;
   border: 1px solid white;
@@ -53,3 +57,12 @@
   color: white;
   text-decoration: none;
 }
+<<<<<<< HEAD
+#update-form{
+  border:1px solid black;
+  width:50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+=======
+>>>>>>> huychu
