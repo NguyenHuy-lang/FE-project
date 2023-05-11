@@ -87,37 +87,6 @@ function verifyOTP() {
     });
 }
 
-function resetPassword() {
-    var mypassword = document.querySelector('#new-password').value;
-    var murl = "http://localhost:8080/api/v1/reset-password";
-    const data = {
-        password : mypassword,
-        email: localStorage.getItem("emailResetPassword")
-    }
-
-    fetch(murl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': "application/json",
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to log in');
-        }
-        return response
-    })
-    .then(data => {
-        document.getElementById('otp-form').style.display = 'none';
-        document.getElementById('reset-form').style.display = 'block';
-        window.location.href="http://127.0.0.1:5500/sign-in-up/login.html"
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-
 
 
 

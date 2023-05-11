@@ -88,10 +88,10 @@ function verifyOTP() {
 }
 
 function resetPassword() {
-    var mypassword = document.querySelector('#new-password').value;
+    var motp = document.querySelector('#new-password').value;
     var murl = "http://localhost:8080/api/v1/reset-password";
     const data = {
-        password : mypassword,
+        password : motp,
         email: localStorage.getItem("emailResetPassword")
     }
 
@@ -111,7 +111,6 @@ function resetPassword() {
     .then(data => {
         document.getElementById('otp-form').style.display = 'none';
         document.getElementById('reset-form').style.display = 'block';
-        window.location.href="http://127.0.0.1:5500/sign-in-up/login.html"
     })
     .catch(error => {
         console.error('Error:', error);

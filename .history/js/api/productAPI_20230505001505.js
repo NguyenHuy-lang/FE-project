@@ -302,7 +302,9 @@ const saveInfo = (btn) => {
   
     let info = JSON.parse(localStorage.getItem('authInfo'))
   
-    
+    console.log(info)
+    console.log(info['access_token'])
+    console.log(info['expires_in'])
   
     
     var accessToken;
@@ -376,7 +378,9 @@ const saveInfo = (btn) => {
   
     let info = JSON.parse(localStorage.getItem('authInfo'))
   
-  
+    console.log(info)
+    console.log(info['access_token'])
+    console.log(info['expires_in'])
   
     
     var accessToken;
@@ -439,7 +443,10 @@ const saveInfo = (btn) => {
   
     let info = JSON.parse(localStorage.getItem('authInfo'))
   
-   
+    console.log(info)
+    console.log(info['access_token'])
+    console.log(info['expires_in'])
+  
     
     var accessToken;
     if(localStorage.getItem("accessToken") == null) {
@@ -497,7 +504,10 @@ const saveInfo = (btn) => {
   
     let info = JSON.parse(localStorage.getItem('authInfo'))
   
-    
+    console.log(info)
+    console.log(info['access_token'])
+    console.log(info['expires_in'])
+  
     
     var accessToken;
     if(localStorage.getItem("accessToken") == null) {

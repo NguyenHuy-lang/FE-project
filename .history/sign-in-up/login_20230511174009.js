@@ -111,7 +111,6 @@ function resetPassword() {
     .then(data => {
         document.getElementById('otp-form').style.display = 'none';
         document.getElementById('reset-form').style.display = 'block';
-        window.location.href="http://127.0.0.1:5500/sign-in-up/login.html"
     })
     .catch(error => {
         console.error('Error:', error);
